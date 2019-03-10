@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java内存模型1.导致可见性的原因是缓存：1有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&amp;gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。 2-volatile123456789101112">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2-JMM浅谈">
+<meta property="og:url" content="https://lprodreamall.github.io/2019/03/10/javacurrent2/index.html">
+<meta property="og:site_name" content="少主江衫的博客">
+<meta property="og:description" content="java内存模型1.导致可见性的原因是缓存：1有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&amp;gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。 2-volatile123456789101112">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/5.png">
+<meta property="og:updated_time" content="2019-03-10T05:58:48.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2-JMM浅谈">
+<meta name="twitter:description" content="java内存模型1.导致可见性的原因是缓存：1有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&amp;gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。 2-volatile123456789101112">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lprodreamall.github.io/2019/03/10/javacurrent2/">
+
+
+
+
+
+  <title>2-JMM浅谈 | 少主江衫的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">少主江衫的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Create</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/10/javacurrent2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="少主江衫">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="少主江衫的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2-JMM浅谈</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T12:29:44+08:00">
+                2019-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA并发/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2><h3 id="1-导致可见性的原因是缓存："><a href="#1-导致可见性的原因是缓存：" class="headerlink" title="1.导致可见性的原因是缓存："></a>1.导致可见性的原因是缓存：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。</span><br></pre></td></tr></table></figure>
+<h3 id="2-volatile"><a href="#2-volatile" class="headerlink" title="2-volatile"></a>2-volatile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">volatile int x=1;//告诉编译器对这个x变量的读写不能使用CPU缓存，必须从内存中读或者写，但是实际运用中的困惑却很多！</span><br><span class="line">public class VolatileExample &#123;</span><br><span class="line">    int x = 0;</span><br><span class="line">    volatile boolean v = false;</span><br><span class="line">    public void writer() &#123;</span><br><span class="line">        x = 42;</span><br><span class="line">        v = true;</span><br><span class="line">    &#125;</span><br><span class="line">    public void reader() &#123;</span><br><span class="line">        if (v) &#123;</span><br><span class="line">            System.out.println(&quot;x = &quot; + x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test &#123;</span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        VolatileExample volatileExample = new VolatileExample();</span><br><span class="line">        Thread A = new Thread(volatileExample::writer);</span><br><span class="line">        Thread B = new Thread(volatileExample::reader);</span><br><span class="line">        A.start();</span><br><span class="line">        B.start();</span><br><span class="line">        A.join();</span><br><span class="line">        B.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//x = 42</span><br><span class="line">解释：线程A执行writer方法，安装volatile语义会把变量“v=true”写到内存中，此时线程B执行reader方法，线程B会从内存中读取变量V，此时x结果为42。（java版本必须保证在1.5之后）</span><br><span class="line">JAVA1.5解决了CPU缓存导致可见性问题，Happens-Before规则。</span><br><span class="line">Happens-Before：前面一个操作的结果对后续的操作是可见的。</span><br><span class="line">约束了编译器的优化的行为，编译器优化必须遵循Happens-Before原则（6个原则）。</span><br></pre></td></tr></table></figure>
+<h4 id="1-程序代码片段的顺序性规则"><a href="#1-程序代码片段的顺序性规则" class="headerlink" title="1.程序代码片段的顺序性规则"></a>1.程序代码片段的顺序性规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 以下代码来源于【参考 1】</span><br><span class="line">1class VolatileExample &#123;</span><br><span class="line"> 2 int x = 0;</span><br><span class="line"> 3 volatile boolean v = false;</span><br><span class="line"> 4 public void writer() &#123;</span><br><span class="line"> 5   x = 42; //对x进行赋值 写</span><br><span class="line"> 6   v = true;//对v进行赋值 写</span><br><span class="line"> 7  &#125;</span><br><span class="line"> 8 public void reader() &#123;</span><br><span class="line"> 9   if (v == true) &#123;//此时需要读v</span><br><span class="line"> 10    // 这里 x 会是多少呢？</span><br><span class="line"> 11  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">代码第5行x=42，对于第6行v=true来讲是可见的。（规则1）称之5 happens-before于6</span><br></pre></td></tr></table></figure>
+<h4 id="2-Volatile变量规则"><a href="#2-Volatile变量规则" class="headerlink" title="2.Volatile变量规则"></a>2.Volatile变量规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对一个volatile编写的写操作happens-before于后续对这个volatile变量的读操作。（在不关联3的时候，就是禁用缓存的意思。）</span><br></pre></td></tr></table></figure>
+<h4 id="3-传递性A-happens-before-B，-amp-B-happens-before-C，那么A-happens-before-C。"><a href="#3-传递性A-happens-before-B，-amp-B-happens-before-C，那么A-happens-before-C。" class="headerlink" title="3.传递性A happens-before B，&amp; B happens-before C，那么A happens-before C。"></a>3.传递性A happens-before B，&amp; B happens-before C，那么A happens-before C。</h4><p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/5.png" alt="综合123和例子代码" title="综合123和例子代码"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x=42 happens-before v=true的写操作 规则1：程序的顺序性</span><br><span class="line">v=true 写操作 happens-before v=true的读操作 规则2 ： volatile修饰变量的可见性</span><br><span class="line">那么根据规则3 x=42 happens-before v=true的读操作！此时线程B能看到线程A中的x=42！</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-管程中的锁–对一个锁的解锁-happens-before-于后续对这个锁的加锁。"><a href="#4-管程中的锁–对一个锁的解锁-happens-before-于后续对这个锁的加锁。" class="headerlink" title="4.管程中的锁–对一个锁的解锁  happens-before  于后续对这个锁的加锁。"></a>4.管程中的锁–对一个锁的解锁  happens-before  于后续对这个锁的加锁。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">管程：一种通用的同步原语-java实现synchronized（此过程的加锁释放锁（代码块执行完&#125;后）都是jvm帮我们实现的 底层：javap monitor机制）。</span><br></pre></td></tr></table></figure>
+<h4 id="5-线程start规则"><a href="#5-线程start规则" class="headerlink" title="5.线程start规则"></a>5.线程start规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主线程A在启动子线程B后，子线程B能够看到主线程A再启动B前的操作。</span><br></pre></td></tr></table></figure>
+<h4 id="6-线程join规则"><a href="#6-线程join规则" class="headerlink" title="6.线程join规则"></a>6.线程join规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">指主线程A等待子线程B完成（A调用子线程B的join方法实现），当B完成操作后，主线程A能够看到B对共享变量的操作。</span><br><span class="line">Thread B = new Thread(()-&gt;&#123;</span><br><span class="line">  // 此处对共享变量 var 修改</span><br><span class="line">  var = 66;</span><br><span class="line">&#125;);</span><br><span class="line">// 例如此处对共享变量修改，</span><br><span class="line">// 则这个修改结果对线程 B 可见</span><br><span class="line">// 主线程启动子线程</span><br><span class="line">B.start();</span><br><span class="line">B.join()</span><br><span class="line">// 子线程所有对共享变量的修改</span><br><span class="line">// 在主线程调用 B.join() 之后皆可见</span><br><span class="line">// 此例中，var==66</span><br><span class="line"></span><br><span class="line">假设B在线程A中执行，那么B中对变量var的修改 happens-before A,就是A都知道。</span><br></pre></td></tr></table></figure>
+<h4 id="7-线程中断规则："><a href="#7-线程中断规则：" class="headerlink" title="7.线程中断规则："></a>7.线程中断规则：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生，可以通过Thread.interrupted()方法检测到是否有中断发生。</span><br></pre></td></tr></table></figure>
+<h4 id="8-对象终结规则："><a href="#8-对象终结规则：" class="headerlink" title="8.对象终结规则："></a>8.对象终结规则：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">一个对象的初始化完成(构造函数执行结束)先行发生于它的finalize()方法的开始。</span><br><span class="line">final：</span><br><span class="line">修饰变量的时候，告诉编译器，这个变量生而不变（内地地址）。</span><br><span class="line">在正确的构造函数中没有“逸出”就不会出现问题！</span><br><span class="line">// 以下代码来源于【参考 1】</span><br><span class="line">final int x;</span><br><span class="line">// 错误的构造函数</span><br><span class="line">public FinalFieldExample() &#123; </span><br><span class="line">  x = 3;</span><br><span class="line">  y = 4;</span><br><span class="line">  // 此处就是讲 this 逸出，</span><br><span class="line">  global.obj = this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="思考：此时有可能访问到this还没有初始化完成！"><a href="#思考：此时有可能访问到this还没有初始化完成！" class="headerlink" title="思考：此时有可能访问到this还没有初始化完成！"></a>思考：此时有可能访问到this还没有初始化完成！</h4><h3 id="问题：一个共享变量a-3-在一个线程中设置了abc的值a-3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题"><a href="#问题：一个共享变量a-3-在一个线程中设置了abc的值a-3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题" class="headerlink" title="问题：一个共享变量a=3,在一个线程中设置了abc的值a=3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题"></a>问题：一个共享变量a=3,在一个线程中设置了abc的值a=3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1-volatile 修饰a</span><br><span class="line">2-加锁synchronized ，根据 happens-before 原则其他线程在A线程释放锁以后就会看到变量a</span><br><span class="line">3-A线程启动后使用A.join(),后续线程就可以看到</span><br><span class="line">4-直接使用static修饰</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/10/javacurrent1/" rel="next" title="1-学习java并发">
+                <i class="fa fa-chevron-left"></i> 1-学习java并发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/10/zookeeper1/" rel="prev" title="zookeeper1">
+                zookeeper1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">少主江衫</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java内存模型"><span class="nav-number">1.</span> <span class="nav-text">java内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-导致可见性的原因是缓存："><span class="nav-number">1.1.</span> <span class="nav-text">1.导致可见性的原因是缓存：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-volatile"><span class="nav-number">1.2.</span> <span class="nav-text">2-volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-程序代码片段的顺序性规则"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.程序代码片段的顺序性规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Volatile变量规则"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.Volatile变量规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-传递性A-happens-before-B，-amp-B-happens-before-C，那么A-happens-before-C。"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.传递性A happens-before B，&amp; B happens-before C，那么A happens-before C。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-管程中的锁–对一个锁的解锁-happens-before-于后续对这个锁的加锁。"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.管程中的锁–对一个锁的解锁  happens-before  于后续对这个锁的加锁。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-线程start规则"><span class="nav-number">1.2.5.</span> <span class="nav-text">5.线程start规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-线程join规则"><span class="nav-number">1.2.6.</span> <span class="nav-text">6.线程join规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-线程中断规则："><span class="nav-number">1.2.7.</span> <span class="nav-text">7.线程中断规则：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-对象终结规则："><span class="nav-number">1.2.8.</span> <span class="nav-text">8.对象终结规则：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思考：此时有可能访问到this还没有初始化完成！"><span class="nav-number">1.2.9.</span> <span class="nav-text">思考：此时有可能访问到this还没有初始化完成！</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题：一个共享变量a-3-在一个线程中设置了abc的值a-3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题"><span class="nav-number">1.3.</span> <span class="nav-text">问题：一个共享变量a=3,在一个线程中设置了abc的值a=3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">少主江衫</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
