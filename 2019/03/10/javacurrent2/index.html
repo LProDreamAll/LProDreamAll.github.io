@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="java内存模型1.导致可见性的原因是缓存：1有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&amp;gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。 2-volatile123456789101112">
+<meta name="description" content="java内存模型                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-blfWeGMI&quot;),             narrow: false,             autoplay: tru">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2-JMM浅谈">
 <meta property="og:url" content="https://lprodreamall.github.io/2019/03/10/javacurrent2/index.html">
 <meta property="og:site_name" content="少主江衫的博客">
-<meta property="og:description" content="java内存模型1.导致可见性的原因是缓存：1有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&amp;gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。 2-volatile123456789101112">
+<meta property="og:description" content="java内存模型                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-blfWeGMI&quot;),             narrow: false,             autoplay: tru">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/5.png">
-<meta property="og:updated_time" content="2019-03-10T06:14:14.559Z">
+<meta property="og:updated_time" content="2019-03-10T12:15:52.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2-JMM浅谈">
-<meta name="twitter:description" content="java内存模型1.导致可见性的原因是缓存：1有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&amp;gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。 2-volatile123456789101112">
+<meta name="twitter:description" content="java内存模型                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-blfWeGMI&quot;),             narrow: false,             autoplay: tru">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/5.png">
 
 
@@ -137,6 +137,8 @@
 
 
 
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -343,8 +345,29 @@
       
 
       
-        <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2><h3 id="1-导致可见性的原因是缓存："><a href="#1-导致可见性的原因是缓存：" class="headerlink" title="1.导致可见性的原因是缓存："></a>1.导致可见性的原因是缓存：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。</span><br></pre></td></tr></table></figure>
-<h3 id="2-volatile"><a href="#2-volatile" class="headerlink" title="2-volatile"></a>2-volatile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">volatile int x=1;//告诉编译器对这个x变量的读写不能使用CPU缓存，必须从内存中读或者写，但是实际运用中的困惑却很多！</span><br><span class="line">public class VolatileExample &#123;</span><br><span class="line">    int x = 0;</span><br><span class="line">    volatile boolean v = false;</span><br><span class="line">    public void writer() &#123;</span><br><span class="line">        x = 42;</span><br><span class="line">        v = true;</span><br><span class="line">    &#125;</span><br><span class="line">    public void reader() &#123;</span><br><span class="line">        if (v) &#123;</span><br><span class="line">            System.out.println(&quot;x = &quot; + x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test &#123;</span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        VolatileExample volatileExample = new VolatileExample();</span><br><span class="line">        Thread A = new Thread(volatileExample::writer);</span><br><span class="line">        Thread B = new Thread(volatileExample::reader);</span><br><span class="line">        A.start();</span><br><span class="line">        B.start();</span><br><span class="line">        A.join();</span><br><span class="line">        B.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//x = 42</span><br><span class="line">解释：线程A执行writer方法，安装volatile语义会把变量“v=true”写到内存中，此时线程B执行reader方法，线程B会从内存中读取变量V，此时x结果为42。（java版本必须保证在1.5之后）</span><br><span class="line">JAVA1.5解决了CPU缓存导致可见性问题，Happens-Before规则。</span><br><span class="line">Happens-Before：前面一个操作的结果对后续的操作是可见的。</span><br><span class="line">约束了编译器的优化的行为，编译器优化必须遵循Happens-Before原则（6个原则）。</span><br></pre></td></tr></table></figure>
+        <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2>
+        <div id="aplayer-blfWeGMI" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-blfWeGMI"),
+            narrow: false,
+            autoplay: true,
+            showlrc: false,
+            music: {
+              title: "恋爱循环",
+              author: "香菜",
+              url: "https://m10.music.126.net/20190310203558/fcf42e86e04a9cb1fac15b9db0af183b/ymusic/8a12/d695/fad6/356bfc16cc5f000d13b4aca5fbb87dcc.mp3",
+              pic: "http://p1.music.126.net/hWrYLdhzF4waj4WL1dFPmg==/642114790633458.jpg",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
+<h3 id="1-导致可见性的原因是缓存："><a href="#1-导致可见性的原因是缓存：" class="headerlink" title="1.导致可见性的原因是缓存："></a>1.导致可见性的原因是缓存：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。</span><br></pre></td></tr></table></figure>
+<h3 id="2-volatile"><a href="#2-volatile" class="headerlink" title="2-volatile"></a>2-volatile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">volatile int x=1;//告诉编译器对这个x变量的读写不能使用CPU缓存，必须从内存中读或者写，但是实际运用中的困惑却很多！</span><br><span class="line">public class VolatileExample &#123;</span><br><span class="line">    int x = 0;</span><br><span class="line">    volatile boolean v = false;</span><br><span class="line">    public void writer() &#123;</span><br><span class="line">        x = 42;</span><br><span class="line">        v = true;</span><br><span class="line">    &#125;</span><br><span class="line">    public void reader() &#123;</span><br><span class="line">        if (v) &#123;</span><br><span class="line">            System.out.println(&quot;x = &quot; + x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test &#123;</span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        VolatileExample volatileExample = new VolatileExample();</span><br><span class="line">        Thread A = new Thread(volatileExample::writer);</span><br><span class="line">        Thread B = new Thread(volatileExample::reader);</span><br><span class="line">        A.start();</span><br><span class="line">        B.start();</span><br><span class="line">        A.join();</span><br><span class="line">        B.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//x = 42</span><br><span class="line">解释：线程A执行writer方法，安装volatile语义会把变量“v=true”写到内存中，此时线程B执行reader方法，线程B会从内存中读取变量V，此时x结果为42。（java版本必须保证在1.5之后）</span><br><span class="line">JAVA1.5解决了CPU缓存导致可见性问题，Happens-Before规则。</span><br><span class="line">Happens-Before：前面一个操作的结果对后续的操作是可见的。</span><br><span class="line">约束了编译器的优化的行为，编译器优化必须遵循Happens-Before原则（6个原则）。</span><br></pre></td></tr></table></figure>
 <h4 id="1-程序代码片段的顺序性规则"><a href="#1-程序代码片段的顺序性规则" class="headerlink" title="1.程序代码片段的顺序性规则"></a>1.程序代码片段的顺序性规则</h4><a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 以下代码来源于【参考 1】</span><br><span class="line">1class VolatileExample &#123;</span><br><span class="line"> 2 int x = 0;</span><br><span class="line"> 3 volatile boolean v = false;</span><br><span class="line"> 4 public void writer() &#123;</span><br><span class="line"> 5   x = 42; //对x进行赋值 写</span><br><span class="line"> 6   v = true;//对v进行赋值 写</span><br><span class="line"> 7  &#125;</span><br><span class="line"> 8 public void reader() &#123;</span><br><span class="line"> 9   if (v == true) &#123;//此时需要读v</span><br><span class="line"> 10    // 这里 x 会是多少呢？</span><br><span class="line"> 11  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">代码第5行x=42，对于第6行v=true来讲是可见的。（规则1）称之5 happens-before于6</span><br></pre></td></tr></table></figure>
 <h4 id="2-Volatile变量规则"><a href="#2-Volatile变量规则" class="headerlink" title="2.Volatile变量规则"></a>2.Volatile变量规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对一个volatile编写的写操作happens-before于后续对这个volatile变量的读操作。（在不关联3的时候，就是禁用缓存的意思。）</span><br></pre></td></tr></table></figure>
