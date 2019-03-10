@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/4.png">
-<meta property="og:updated_time" content="2019-03-10T06:09:33.628Z">
+<meta property="og:updated_time" content="2019-03-10T06:14:14.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1-学习java并发">
 <meta name="twitter:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：  简单介绍：分工，同步，互斥分工1任务分解：多线程实现。Java SDK中Executor,Fork/Join ,Future。模式：生产-消费者，Worker-Thread(spark集群)，Thread-Per-Message。（合理的结合生活场景。） 同步1一个线程完成了一个任务，如何通知">
@@ -352,6 +352,7 @@
 <h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分工，同步解决的是性能问题。互斥讲的是线程安全问题--同一时刻只允许一个线程访问共享变量。JAVA：synchronized，lock；</span><br><span class="line">Java SDK 里提供的 ReadWriteLock、StampedLock 就可以优化读多写少场景下锁的性能，CAS更好！</span><br><span class="line">不共享变量或者只允许读：ThreadLocal，final，Copy-on-Write模式。</span><br></pre></td></tr></table></figure>
 <h2 id="可见性，原子性，有序性就是并发的源头"><a href="#可见性，原子性，有序性就是并发的源头" class="headerlink" title="可见性，原子性，有序性就是并发的源头"></a>可见性，原子性，有序性就是并发的源头</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">并发(concurrency)：1:在同一时间间隔内，一个cpu,轮流执行多个任务(线程)。</span><br><span class="line">并行(parallellism)：1:讲究同时性--多个cpu同时执行多个任务(线程)。</span><br></pre></td></tr></table></figure>
 <h3 id="并发程序之幕后"><a href="#并发程序之幕后" class="headerlink" title="并发程序之幕后"></a>并发程序之幕后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CPU,内存，I/O三者的速度差异-&gt;核心矛盾</span><br><span class="line">CPU&gt;&gt;内存&gt;&gt;I/O（天-&gt;年-&gt;1000年）</span><br><span class="line">程序中大部分代码会涉及访问操作系统内存+I/O，根据木桶理论(最短的那块板子，决定了一	  只木桶能装多少水！)，所以整个程序的性能取决于I/O读写操作。仅单方面提高CPU性能是无效的。</span><br><span class="line">目前合理利用CPU性能，平衡这三者的速度差异，计算机体系机构，操作系统，编译程序分别作了：</span><br><span class="line">    1.CPU增加了缓存-&gt;均衡了与内存的速度差异！</span><br><span class="line">    2.操作系统增加了进程、线程分时复用CPU，为了均衡CPU和I/O的速度差异。</span><br><span class="line">    3.编译程序优化了指令执行次序，使得缓存能够得到更加合理的使用。</span><br><span class="line">   核心矛盾就是并发程序的诡异问题的根源！</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="一、CPU缓存导致的可见性问题"><a href="#一、CPU缓存导致的可见性问题" class="headerlink" title="一、CPU缓存导致的可见性问题"></a>一、CPU缓存导致的可见性问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核CPU缓存和内存的数据一致性问题很好解决！下图CPU和内存的关系图！</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png" alt="单个CPU缓存导致的可见性问题" title="单个CPU缓存导致的可见性问题"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可见性：一个线程对共享变量的修改，另外一个线程能立刻看到！</span><br><span class="line">单核CPU上多个线程操作同一个CPU的缓存，一个线程对缓存的写，对另一个线程来说一定是可见的。上图：线程A和B同时操作同一个CPU的缓存，所以A更新了V的值，B之后再访问一定是拿到的最新的值。</span><br><span class="line">多核CPU,每个cpu都有自己的缓存！</span><br></pre></td></tr></table></figure>
@@ -472,7 +473,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

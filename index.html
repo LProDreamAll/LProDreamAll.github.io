@@ -249,125 +249,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/10/zookeeper1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="少主江衫">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="少主江衫的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/10/zookeeper1/" itemprop="url">zookeeper1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T14:01:15+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/10/javacurrent2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,7 +280,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T12:29:44+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T13:29:44+08:00">
                 2019-03-10
               </time>
             
@@ -460,20 +341,16 @@
 
       
         
-          
-            <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2><h3 id="1-导致可见性的原因是缓存："><a href="#1-导致可见性的原因是缓存：" class="headerlink" title="1.导致可见性的原因是缓存："></a>1.导致可见性的原因是缓存：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。</span><br></pre></td></tr></table></figure>
+          <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2><h3 id="1-导致可见性的原因是缓存："><a href="#1-导致可见性的原因是缓存：" class="headerlink" title="1.导致可见性的原因是缓存："></a>1.导致可见性的原因是缓存：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有序性的原因是编译优化，合理的方案应该是“按需禁用缓存和编译优化”。java的内存模型是个很复杂的规范，从程序员的角度：java内存模型规范了JVM如何提供按需禁用缓存和编译优化的方法-&gt;volatile,synchronized,final三个关键字，以及六项Happens-Before规则。</span><br></pre></td></tr></table></figure>
 <h3 id="2-volatile"><a href="#2-volatile" class="headerlink" title="2-volatile"></a>2-volatile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">volatile int x=1;//告诉编译器对这个x变量的读写不能使用CPU缓存，必须从内存中读或者写，但是实际运用中的困惑却很多！</span><br><span class="line">public class VolatileExample &#123;</span><br><span class="line">    int x = 0;</span><br><span class="line">    volatile boolean v = false;</span><br><span class="line">    public void writer() &#123;</span><br><span class="line">        x = 42;</span><br><span class="line">        v = true;</span><br><span class="line">    &#125;</span><br><span class="line">    public void reader() &#123;</span><br><span class="line">        if (v) &#123;</span><br><span class="line">            System.out.println(&quot;x = &quot; + x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test &#123;</span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        VolatileExample volatileExample = new VolatileExample();</span><br><span class="line">        Thread A = new Thread(volatileExample::writer);</span><br><span class="line">        Thread B = new Thread(volatileExample::reader);</span><br><span class="line">        A.start();</span><br><span class="line">        B.start();</span><br><span class="line">        A.join();</span><br><span class="line">        B.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//x = 42</span><br><span class="line">解释：线程A执行writer方法，安装volatile语义会把变量“v=true”写到内存中，此时线程B执行reader方法，线程B会从内存中读取变量V，此时x结果为42。（java版本必须保证在1.5之后）</span><br><span class="line">JAVA1.5解决了CPU缓存导致可见性问题，Happens-Before规则。</span><br><span class="line">Happens-Before：前面一个操作的结果对后续的操作是可见的。</span><br><span class="line">约束了编译器的优化的行为，编译器优化必须遵循Happens-Before原则（6个原则）。</span><br></pre></td></tr></table></figure>
-<h4 id="1-程序代码片段的顺序性规则"><a href="#1-程序代码片段的顺序性规则" class="headerlink" title="1.程序代码片段的顺序性规则"></a>1.程序代码片段的顺序性规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 以下代码来源于【参考 1】</span><br><span class="line">1class VolatileExample &#123;</span><br><span class="line"> 2 int x = 0;</span><br><span class="line"> 3 volatile boolean v = false;</span><br><span class="line"> 4 public void writer() &#123;</span><br><span class="line"> 5   x = 42; //对x进行赋值 写</span><br><span class="line"> 6   v = true;//对v进行赋值 写</span><br><span class="line"> 7  &#125;</span><br><span class="line"> 8 public void reader() &#123;</span><br><span class="line"> 9   if (v == true) &#123;//此时需要读v</span><br><span class="line"> 10    // 这里 x 会是多少呢？</span><br><span class="line"> 11  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">代码第5行x=42，对于第6行v=true来讲是可见的。（规则1）称之5 happens-before于6</span><br></pre></td></tr></table></figure>
-<h4 id="2-Volatile变量规则"><a href="#2-Volatile变量规则" class="headerlink" title="2.Volatile变量规则"></a>2.Volatile变量规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对一个volatile编写的写操作happens-before于后续对这个volatile变量的读操作。（在不关联3的时候，就是禁用缓存的意思。）</span><br></pre></td></tr></table></figure>
-<h4 id="3-传递性A-happens-before-B，-amp-B-happens-before-C，那么A-happens-before-C。"><a href="#3-传递性A-happens-before-B，-amp-B-happens-before-C，那么A-happens-before-C。" class="headerlink" title="3.传递性A happens-before B，&amp; B happens-before C，那么A happens-before C。"></a>3.传递性A happens-before B，&amp; B happens-before C，那么A happens-before C。</h4><p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/5.png" alt="综合123和例子代码" title="综合123和例子代码"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x=42 happens-before v=true的写操作 规则1：程序的顺序性</span><br><span class="line">v=true 写操作 happens-before v=true的读操作 规则2 ： volatile修饰变量的可见性</span><br><span class="line">那么根据规则3 x=42 happens-before v=true的读操作！此时线程B能看到线程A中的x=42！</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-管程中的锁–对一个锁的解锁-happens-before-于后续对这个锁的加锁。"><a href="#4-管程中的锁–对一个锁的解锁-happens-before-于后续对这个锁的加锁。" class="headerlink" title="4.管程中的锁–对一个锁的解锁  happens-before  于后续对这个锁的加锁。"></a>4.管程中的锁–对一个锁的解锁  happens-before  于后续对这个锁的加锁。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">管程：一种通用的同步原语-java实现synchronized（此过程的加锁释放锁（代码块执行完&#125;后）都是jvm帮我们实现的 底层：javap monitor机制）。</span><br></pre></td></tr></table></figure>
-<h4 id="5-线程start规则"><a href="#5-线程start规则" class="headerlink" title="5.线程start规则"></a>5.线程start规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主线程A在启动子线程B后，子线程B能够看到主线程A再启动B前的操作。</span><br></pre></td></tr></table></figure>
-<h4 id="6-线程join规则"><a href="#6-线程join规则" class="headerlink" title="6.线程join规则"></a>6.线程join规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">指主线程A等待子线程B完成（A调用子线程B的join方法实现），当B完成操作后，主线程A能够看到B对共享变量的操作。</span><br><span class="line">Thread B = new Thread(()-&gt;&#123;</span><br><span class="line">  // 此处对共享变量 var 修改</span><br><span class="line">  var = 66;</span><br><span class="line">&#125;);</span><br><span class="line">// 例如此处对共享变量修改，</span><br><span class="line">// 则这个修改结果对线程 B 可见</span><br><span class="line">// 主线程启动子线程</span><br><span class="line">B.start();</span><br><span class="line">B.join()</span><br><span class="line">// 子线程所有对共享变量的修改</span><br><span class="line">// 在主线程调用 B.join() 之后皆可见</span><br><span class="line">// 此例中，var==66</span><br><span class="line"></span><br><span class="line">假设B在线程A中执行，那么B中对变量var的修改 happens-before A,就是A都知道。</span><br></pre></td></tr></table></figure>
-<h4 id="7-线程中断规则："><a href="#7-线程中断规则：" class="headerlink" title="7.线程中断规则："></a>7.线程中断规则：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生，可以通过Thread.interrupted()方法检测到是否有中断发生。</span><br></pre></td></tr></table></figure>
-<h4 id="8-对象终结规则："><a href="#8-对象终结规则：" class="headerlink" title="8.对象终结规则："></a>8.对象终结规则：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">一个对象的初始化完成(构造函数执行结束)先行发生于它的finalize()方法的开始。</span><br><span class="line">final：</span><br><span class="line">修饰变量的时候，告诉编译器，这个变量生而不变（内地地址）。</span><br><span class="line">在正确的构造函数中没有“逸出”就不会出现问题！</span><br><span class="line">// 以下代码来源于【参考 1】</span><br><span class="line">final int x;</span><br><span class="line">// 错误的构造函数</span><br><span class="line">public FinalFieldExample() &#123; </span><br><span class="line">  x = 3;</span><br><span class="line">  y = 4;</span><br><span class="line">  // 此处就是讲 this 逸出，</span><br><span class="line">  global.obj = this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="思考：此时有可能访问到this还没有初始化完成！"><a href="#思考：此时有可能访问到this还没有初始化完成！" class="headerlink" title="思考：此时有可能访问到this还没有初始化完成！"></a>思考：此时有可能访问到this还没有初始化完成！</h4><h3 id="问题：一个共享变量a-3-在一个线程中设置了abc的值a-3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题"><a href="#问题：一个共享变量a-3-在一个线程中设置了abc的值a-3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题" class="headerlink" title="问题：一个共享变量a=3,在一个线程中设置了abc的值a=3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题"></a>问题：一个共享变量a=3,在一个线程中设置了abc的值a=3，怎么让其他线程看到？跳出这个圈子–其实就是怎么解决缓存问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1-volatile 修饰a</span><br><span class="line">2-加锁synchronized ，根据 happens-before 原则其他线程在A线程释放锁以后就会看到变量a</span><br><span class="line">3-A线程启动后使用A.join(),后续线程就可以看到</span><br><span class="line">4-直接使用static修饰</span><br></pre></td></tr></table></figure>
-
-          
+<h4 id="1-程序代码片段的顺序性规则"><a href="#1-程序代码片段的顺序性规则" class="headerlink" title="1.程序代码片段的顺序性规则"></a>1.程序代码片段的顺序性规则</h4>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/10/javacurrent2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -612,26 +489,19 @@
 
       
         
-          
-            <h2 id="导语：把握关键的6秒时差"><a href="#导语：把握关键的6秒时差" class="headerlink" title="导语：把握关键的6秒时差"></a>导语：把握关键的6秒时差</h2><h3 id="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><a href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！" class="headerlink" title="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"></a>并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</h3><h2 id="大纲-："><a href="#大纲-：" class="headerlink" title="大纲 ："></a>大纲 ：</h2><p> <img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png" alt="并发编程大纲" title="并发编程大纲"></p>
+          <h2 id="导语：把握关键的6秒时差"><a href="#导语：把握关键的6秒时差" class="headerlink" title="导语：把握关键的6秒时差"></a>导语：把握关键的6秒时差</h2><h3 id="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><a href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！" class="headerlink" title="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"></a>并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</h3><h2 id="大纲-："><a href="#大纲-：" class="headerlink" title="大纲 ："></a>大纲 ：</h2><p> <img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png" alt="并发编程大纲" title="并发编程大纲"></p>
 <h2 id="简单介绍：分工，同步，互斥"><a href="#简单介绍：分工，同步，互斥" class="headerlink" title="简单介绍：分工，同步，互斥"></a>简单介绍：分工，同步，互斥</h2><h3 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">任务分解：多线程实现。Java SDK中Executor,Fork/Join ,Future。模式：生产-消费者，Worker-Thread(spark集群)，Thread-Per-Message。（合理的结合生活场景。）</span><br></pre></td></tr></table></figure>
 <h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个线程完成了一个任务，如何通知后续的任务线程开工。Future,CountDownLatch、CyclicBarrier、Phaser、Exchanger。核心是管程。</span><br></pre></td></tr></table></figure>
 <h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分工，同步解决的是性能问题。互斥讲的是线程安全问题--同一时刻只允许一个线程访问共享变量。JAVA：synchronized，lock；</span><br><span class="line">Java SDK 里提供的 ReadWriteLock、StampedLock 就可以优化读多写少场景下锁的性能，CAS更好！</span><br><span class="line">不共享变量或者只允许读：ThreadLocal，final，Copy-on-Write模式。</span><br></pre></td></tr></table></figure>
 <h2 id="可见性，原子性，有序性就是并发的源头"><a href="#可见性，原子性，有序性就是并发的源头" class="headerlink" title="可见性，原子性，有序性就是并发的源头"></a>可见性，原子性，有序性就是并发的源头</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">并发(concurrency)：1:在同一时间间隔内，一个cpu,轮流执行多个任务(线程)。</span><br><span class="line">并行(parallellism)：1:讲究同时性--多个cpu同时执行多个任务(线程)。</span><br></pre></td></tr></table></figure>
 <h3 id="并发程序之幕后"><a href="#并发程序之幕后" class="headerlink" title="并发程序之幕后"></a>并发程序之幕后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CPU,内存，I/O三者的速度差异-&gt;核心矛盾</span><br><span class="line">CPU&gt;&gt;内存&gt;&gt;I/O（天-&gt;年-&gt;1000年）</span><br><span class="line">程序中大部分代码会涉及访问操作系统内存+I/O，根据木桶理论(最短的那块板子，决定了一	  只木桶能装多少水！)，所以整个程序的性能取决于I/O读写操作。仅单方面提高CPU性能是无效的。</span><br><span class="line">目前合理利用CPU性能，平衡这三者的速度差异，计算机体系机构，操作系统，编译程序分别作了：</span><br><span class="line">    1.CPU增加了缓存-&gt;均衡了与内存的速度差异！</span><br><span class="line">    2.操作系统增加了进程、线程分时复用CPU，为了均衡CPU和I/O的速度差异。</span><br><span class="line">    3.编译程序优化了指令执行次序，使得缓存能够得到更加合理的使用。</span><br><span class="line">   核心矛盾就是并发程序的诡异问题的根源！</span><br></pre></td></tr></table></figure>
-<h3 id="一、CPU缓存导致的可见性问题"><a href="#一、CPU缓存导致的可见性问题" class="headerlink" title="一、CPU缓存导致的可见性问题"></a>一、CPU缓存导致的可见性问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核CPU缓存和内存的数据一致性问题很好解决！下图CPU和内存的关系图！</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png" alt="单个CPU缓存导致的可见性问题" title="单个CPU缓存导致的可见性问题"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可见性：一个线程对共享变量的修改，另外一个线程能立刻看到！</span><br><span class="line">单核CPU上多个线程操作同一个CPU的缓存，一个线程对缓存的写，对另一个线程来说一定是可见的。上图：线程A和B同时操作同一个CPU的缓存，所以A更新了V的值，B之后再访问一定是拿到的最新的值。</span><br><span class="line">多核CPU,每个cpu都有自己的缓存！</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/3.png" alt="多个CPU缓存导致的可见性问题" title="多个CPU缓存导致的可见性问题"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">此时A线程操作的是CPU-1上的缓存，B线程操作的是CPU-2上面的缓存，A线程对变量V的操作对于B线程来讲就是隐藏的。</span><br><span class="line">public class Test &#123;</span><br><span class="line">  private long count = 0;</span><br><span class="line">  private void add10K() &#123;</span><br><span class="line">    int idx = 0;</span><br><span class="line">    while(idx++ &lt; 10000) &#123;</span><br><span class="line">      count += 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  public static long calc() &#123;</span><br><span class="line">    final Test test = new Test();</span><br><span class="line">    // 创建两个线程，执行 add() 操作</span><br><span class="line">    Thread th1 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread th2 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    // 启动两个线程</span><br><span class="line">    th1.start();</span><br><span class="line">    th2.start();</span><br><span class="line">    // 等待两个线程执行结束</span><br><span class="line">    th1.join();</span><br><span class="line">    th2.join();</span><br><span class="line">    return count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">执行calc()方法会发现，打印结果小于20000，因为A，B两个线程启动的时候会被放到不同的CPU中执行，而此时只有一个内存，A从内存中把count读出来放到cpu缓存中+1,B也是这样，完了再把count放到内存中。当A,B线程同时发生的时候，会发现内存中的值为1，而不是我们期望的2。</span><br></pre></td></tr></table></figure>
-<h3 id="二、线程切换-带来原子性问题"><a href="#二、线程切换-带来原子性问题" class="headerlink" title="二、线程切换-带来原子性问题"></a>二、线程切换-带来原子性问题</h3><h4 id="1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"><a href="#1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。" class="headerlink" title="1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"></a>1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核操作系统允许某个进程A执行一段时间-50ms，过了50ms会重新选择一个进程B来执行（线程切换），此时A线程不占有CPU，这个50ms叫做“时间片”。</span><br></pre></td></tr></table></figure>
-<h4 id="2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"><a href="#2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！" class="headerlink" title="2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"></a>2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">前面提到CPU的速度&gt;&gt;I/O,当在一个时间片中，一个进程进行一个I/O操作的时候（读取一个文件），这个时候CPU发出一个指令就可以，但是I/O操作还会持续把文件读进内存，如果这个时候这个进程还在占有该CPU那么对于此时来讲，这个CPU是浪费的。可以在此时，该进程把自己标记为“休眠状态”并且让出CPU占有权，直到文件被读进内存后，操作系统唤起该进程，该进程可以继续获取到CPU的使用权。</span><br><span class="line">那么CPU发出一个指令直到文件被读进内存期间，CPU使用权被释放，那么CPU可以做别的事情了，CPU的使用率会提高；此外，如果这个时候有另外一个进程也在进行读取文件，那么这个读取文件的进程就会排队，磁盘驱动在完成上一个读操作后，发现有新的任务，则会立即启动下一个读进程，此时IO的使用率也会提高。</span><br><span class="line">早期的操作系统都是基于进程来调度CPU的，不同进程之间是不共享内存空间的，进程之间的任务切换就是切换内存映射地址。而一个进程所创建的所有的线程都是共享同一个内存空间的，SO,Thread之间进行任务切换就很低的成本了，现在的操作系统基本都是基于线程切换。</span><br><span class="line">JAVA并发程序都是基于多线程的，存在线程切换。java属于高级语言，代码中的一条语句往往需要多条CPU指令执行。count+=1;则需要3条CPU指令。</span><br><span class="line">1.把count从内存中加载到CPU寄存器。</span><br><span class="line">2.在寄存器中执行+1操作</span><br><span class="line">3.把此时count的结果写到内存中（也有可能写到CPU缓存）</span><br><span class="line">此时的任务切换可能发生在任意CPU指令执行后，而不是java中一句代码后。</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/4.png" alt="线程切换" title="线程切换"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如图：线程切换会造成count+=1原子性问题。结果是1，不是期望的2.</span><br><span class="line">原子性：一个或者多个操作在CPU执行的过程中不被中断的特性。</span><br><span class="line">大头？如何在高级语言层面保证操作的原子性？</span><br></pre></td></tr></table></figure>
-<h3 id="三、编译优化带来的有序性问题。"><a href="#三、编译优化带来的有序性问题。" class="headerlink" title="三、编译优化带来的有序性问题。"></a>三、编译优化带来的有序性问题。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">编译器为了优化性能，会改变程序中语句的先后顺序。“a=6;b=7”会变成&quot;b=7;a=6&quot;这个不会影响程序的最终结果，但是下面：会有问题</span><br><span class="line">双重检查创建单例对象：</span><br><span class="line">public class Singleton &#123;</span><br><span class="line">  static Singleton instance;</span><br><span class="line">  static Singleton getInstance()&#123;</span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        if (instance == null)</span><br><span class="line">          instance = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">1：首先判断instance==null？是，则锁住Singleton.class并且再次检查instance==null？是，则创建Singleton的一个实例。</span><br><span class="line">A,B两个线程同时调用getInstance方法，他们同时发现instance==null，于是同时对Singleton.class加上锁,但此时JVM保证只会有一个线程加锁成功（假设是A），B则会等待。A会创建一个Singleton实例，之后释放锁，B会被唤醒，B会尝试加锁，此时会成功加锁，线程B检查instance==null会发现已经存在了Singleton实例则不会再创建。</span><br><span class="line">但是new操作的时候会出现问题！</span><br><span class="line">我们期望：</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：在内存M上初始化Singleton对象</span><br><span class="line">3：然后M的地址值赋给instance变量</span><br><span class="line">实际上：经过编译优化后！</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：把M的地址值赋值给instance对象</span><br><span class="line">3：最后在M上初始化Singleton</span><br><span class="line">A线程在完成“把M的地址值赋值给instance对象”这一指令之后就直接线程切换给了B线程，然后B线程判断instance！=null（此时都没有进入synchronized里面）但是，此时instance会有空指针异常！</span><br></pre></td></tr></table></figure>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">long类型在32位操作系统上不安全？</span><br><span class="line">答案：long64位，所以在32位机器上对long类型的数据操作是由多条CPU指令组合来的，无法保持原子性。</span><br></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/10/javacurrent1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -711,7 +581,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
