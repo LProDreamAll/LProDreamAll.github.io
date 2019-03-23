@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-JmOmqmbH&quot;),">
+<meta name="description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-CMmuhLcg&quot;),">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1-学习java并发">
 <meta property="og:url" content="https://lprodreamall.github.io/2019/03/10/javacurrent1/index.html">
 <meta property="og:site_name" content="少主江衫的博客">
-<meta property="og:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-JmOmqmbH&quot;),">
+<meta property="og:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-CMmuhLcg&quot;),">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/4.png">
-<meta property="og:updated_time" content="2019-03-13T15:58:11.591Z">
+<meta property="og:updated_time" content="2019-03-23T13:37:03.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1-学习java并发">
-<meta name="twitter:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-JmOmqmbH&quot;),">
+<meta name="twitter:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-CMmuhLcg&quot;),">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png">
 
 
@@ -104,7 +104,7 @@
     root: '/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -228,9 +228,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -264,7 +296,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="少主江衫">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -294,7 +326,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-23T21:37:03+08:00">
+                2019-03-23
+              </time>
             
           </span>
 
@@ -332,6 +376,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
 
           
 
@@ -349,12 +424,12 @@
 
       
         <h2 id="导语：把握关键的6秒时差"><a href="#导语：把握关键的6秒时差" class="headerlink" title="导语：把握关键的6秒时差"></a>导语：把握关键的6秒时差</h2><h3 id="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><a href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！" class="headerlink" title="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"></a>并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</h3><h2 id="大纲-："><a href="#大纲-：" class="headerlink" title="大纲 ："></a>大纲 ：</h2>
-        <div id="aplayer-JmOmqmbH" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-CMmuhLcg" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-JmOmqmbH"),
+            element: document.getElementById("aplayer-CMmuhLcg"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -370,22 +445,22 @@
           window.aplayers.push(ap);
         </script>
 <p> <img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png" alt="并发编程大纲" title="并发编程大纲"></p>
-<h2 id="简单介绍：分工，同步，互斥"><a href="#简单介绍：分工，同步，互斥" class="headerlink" title="简单介绍：分工，同步，互斥"></a>简单介绍：分工，同步，互斥</h2><h3 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">任务分解：多线程实现。Java SDK中Executor,Fork/Join ,Future。模式：生产-消费者，Worker-Thread(spark集群)，Thread-Per-Message。（合理的结合生活场景。）</span><br></pre></td></tr></table></figure>
-<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个线程完成了一个任务，如何通知后续的任务线程开工。Future,CountDownLatch、CyclicBarrier、Phaser、Exchanger。核心是管程。</span><br></pre></td></tr></table></figure>
+<h2 id="简单介绍：分工，同步，互斥"><a href="#简单介绍：分工，同步，互斥" class="headerlink" title="简单介绍：分工，同步，互斥"></a>简单介绍：分工，同步，互斥</h2><h3 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">任务分解：多线程实现。Java SDK中Executor,Fork/Join ,Future。</span><br><span class="line">模式：生产-消费者，Worker-Thread(spark集群)，Thread-Per-Message。（合理的结合生活场景。）</span><br></pre></td></tr></table></figure>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个线程完成了一个任务，如何通知后续的任务线程开工。Future,CountDownLatch、CyclicBarrier、Phaser、Exchanger。</span><br><span class="line">核心是管程。</span><br></pre></td></tr></table></figure>
 <h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分工，同步解决的是性能问题。互斥讲的是线程安全问题--同一时刻只允许一个线程访问共享变量。JAVA：synchronized，lock；</span><br><span class="line">Java SDK 里提供的 ReadWriteLock、StampedLock 就可以优化读多写少场景下锁的性能，CAS更好！</span><br><span class="line">不共享变量或者只允许读：ThreadLocal，final，Copy-on-Write模式。</span><br></pre></td></tr></table></figure>
 <h2 id="可见性，原子性，有序性就是并发的源头"><a href="#可见性，原子性，有序性就是并发的源头" class="headerlink" title="可见性，原子性，有序性就是并发的源头"></a>可见性，原子性，有序性就是并发的源头</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">并发(concurrency)：1:在同一时间间隔内，一个cpu,轮流执行多个任务(线程)。</span><br><span class="line">并行(parallellism)：1:讲究同时性--多个cpu同时执行多个任务(线程)。</span><br></pre></td></tr></table></figure>
-<h3 id="并发程序之幕后"><a href="#并发程序之幕后" class="headerlink" title="并发程序之幕后"></a>并发程序之幕后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CPU,内存，I/O三者的速度差异-&gt;核心矛盾</span><br><span class="line">CPU&gt;&gt;内存&gt;&gt;I/O（天-&gt;年-&gt;1000年）</span><br><span class="line">程序中大部分代码会涉及访问操作系统内存+I/O，根据木桶理论(最短的那块板子，决定了一	  只木桶能装多少水！)，所以整个程序的性能取决于I/O读写操作。仅单方面提高CPU性能是无效的。</span><br><span class="line">目前合理利用CPU性能，平衡这三者的速度差异，计算机体系机构，操作系统，编译程序分别作了：</span><br><span class="line">    1.CPU增加了缓存-&gt;均衡了与内存的速度差异！</span><br><span class="line">    2.操作系统增加了进程、线程分时复用CPU，为了均衡CPU和I/O的速度差异。</span><br><span class="line">    3.编译程序优化了指令执行次序，使得缓存能够得到更加合理的使用。</span><br><span class="line">   核心矛盾就是并发程序的诡异问题的根源！</span><br></pre></td></tr></table></figure>
+<h3 id="并发程序之幕后"><a href="#并发程序之幕后" class="headerlink" title="并发程序之幕后"></a>并发程序之幕后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CPU,内存，I/O三者的速度差异-&gt;核心矛盾</span><br><span class="line">CPU&gt;&gt;内存&gt;&gt;I/O（天-&gt;年-&gt;1000年）</span><br><span class="line">程序中大部分代码会涉及访问操作系统内存+I/O，根据木桶理论(最短的那块板子，决定了一只木桶能装多少水！)，</span><br><span class="line">所以整个程序的性能取决于I/O读写操作。仅单方面提高CPU性能是无效的。目前合理利用CPU性能，平衡这三者的速度差异，计算机</span><br><span class="line">体系机构，操作系统，编译程序分别作了：</span><br><span class="line">    1.CPU增加了缓存-&gt;均衡了与内存的速度差异！</span><br><span class="line">    2.操作系统增加了进程、线程分时复用CPU，为了均衡CPU和I/O的速度差异。</span><br><span class="line">    3.编译程序优化了指令执行次序，使得缓存能够得到更加合理的使用。</span><br><span class="line">   核心矛盾就是并发程序的诡异问题的根源！</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h3 id="一、CPU缓存导致的可见性问题"><a href="#一、CPU缓存导致的可见性问题" class="headerlink" title="一、CPU缓存导致的可见性问题"></a>一、CPU缓存导致的可见性问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核CPU缓存和内存的数据一致性问题很好解决！下图CPU和内存的关系图！</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png" alt="单个CPU缓存导致的可见性问题" title="单个CPU缓存导致的可见性问题"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可见性：一个线程对共享变量的修改，另外一个线程能立刻看到！</span><br><span class="line">单核CPU上多个线程操作同一个CPU的缓存，一个线程对缓存的写，对另一个线程来说一定是可见的。上图：线程A和B同时操作同一个CPU的缓存，所以A更新了V的值，B之后再访问一定是拿到的最新的值。</span><br><span class="line">多核CPU,每个cpu都有自己的缓存！</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">可见性：一个线程对共享变量的修改，另外一个线程能立刻看到！</span><br><span class="line">单核CPU上多个线程操作同一个CPU的缓存，一个线程对缓存的写，对另一个线程来说一定是可见的。上图：线程A和B同时操作同一个CPU的缓存，</span><br><span class="line">所以A更新了V的值，B之后再访问一定是拿到的最新的值。</span><br><span class="line">多核CPU,每个cpu都有自己的缓存！</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/3.png" alt="多个CPU缓存导致的可见性问题" title="多个CPU缓存导致的可见性问题"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">此时A线程操作的是CPU-1上的缓存，B线程操作的是CPU-2上面的缓存，A线程对变量V的操作对于B线程来讲就是隐藏的。</span><br><span class="line">public class Test &#123;</span><br><span class="line">  private long count = 0;</span><br><span class="line">  private void add10K() &#123;</span><br><span class="line">    int idx = 0;</span><br><span class="line">    while(idx++ &lt; 10000) &#123;</span><br><span class="line">      count += 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  public static long calc() &#123;</span><br><span class="line">    final Test test = new Test();</span><br><span class="line">    // 创建两个线程，执行 add() 操作</span><br><span class="line">    Thread th1 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread th2 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    // 启动两个线程</span><br><span class="line">    th1.start();</span><br><span class="line">    th2.start();</span><br><span class="line">    // 等待两个线程执行结束</span><br><span class="line">    th1.join();</span><br><span class="line">    th2.join();</span><br><span class="line">    return count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">执行calc()方法会发现，打印结果小于20000，因为A，B两个线程启动的时候会被放到不同的CPU中执行，而此时只有一个内存，A从内存中把count读出来放到cpu缓存中+1,B也是这样，完了再把count放到内存中。当A,B线程同时发生的时候，会发现内存中的值为1，而不是我们期望的2。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">此时A线程操作的是CPU-1上的缓存，B线程操作的是CPU-2上面的缓存，A线程对变量V的操作对于B线程来讲就是隐藏的。</span><br><span class="line">public class Test &#123;</span><br><span class="line">  private long count = 0;</span><br><span class="line">  private void add10K() &#123;</span><br><span class="line">    int idx = 0;</span><br><span class="line">    while(idx++ &lt; 10000) &#123;</span><br><span class="line">      count += 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  public static long calc() &#123;</span><br><span class="line">    final Test test = new Test();</span><br><span class="line">    // 创建两个线程，执行 add() 操作</span><br><span class="line">    Thread th1 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread th2 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    // 启动两个线程</span><br><span class="line">    th1.start();</span><br><span class="line">    th2.start();</span><br><span class="line">    // 等待两个线程执行结束</span><br><span class="line">    th1.join();</span><br><span class="line">    th2.join();</span><br><span class="line">    return count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">执行calc()方法会发现，打印结果小于20000，因为A，B两个线程启动的时候会被放到不同的CPU中执行，而此时只有一个内存，A从内存中把</span><br><span class="line">count读出来放到cpu缓存中+1,B也是这样，完了再把count放到内存中。当A,B线程同时发生的时候，会发现内存中的值为1，而不是我们期望的2。</span><br></pre></td></tr></table></figure>
 <h3 id="二、线程切换-带来原子性问题"><a href="#二、线程切换-带来原子性问题" class="headerlink" title="二、线程切换-带来原子性问题"></a>二、线程切换-带来原子性问题</h3><h4 id="1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"><a href="#1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。" class="headerlink" title="1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"></a>1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核操作系统允许某个进程A执行一段时间-50ms，过了50ms会重新选择一个进程B来执行（线程切换），此时A线程不占有CPU，这个50ms叫做“时间片”。</span><br></pre></td></tr></table></figure>
-<h4 id="2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"><a href="#2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！" class="headerlink" title="2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"></a>2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">前面提到CPU的速度&gt;&gt;I/O,当在一个时间片中，一个进程进行一个I/O操作的时候（读取一个文件），这个时候CPU发出一个指令就可以，但是I/O操作还会持续把文件读进内存，如果这个时候这个进程还在占有该CPU那么对于此时来讲，这个CPU是浪费的。可以在此时，该进程把自己标记为“休眠状态”并且让出CPU占有权，直到文件被读进内存后，操作系统唤起该进程，该进程可以继续获取到CPU的使用权。</span><br><span class="line">那么CPU发出一个指令直到文件被读进内存期间，CPU使用权被释放，那么CPU可以做别的事情了，CPU的使用率会提高；此外，如果这个时候有另外一个进程也在进行读取文件，那么这个读取文件的进程就会排队，磁盘驱动在完成上一个读操作后，发现有新的任务，则会立即启动下一个读进程，此时IO的使用率也会提高。</span><br><span class="line">早期的操作系统都是基于进程来调度CPU的，不同进程之间是不共享内存空间的，进程之间的任务切换就是切换内存映射地址。而一个进程所创建的所有的线程都是共享同一个内存空间的，SO,Thread之间进行任务切换就很低的成本了，现在的操作系统基本都是基于线程切换。</span><br><span class="line">JAVA并发程序都是基于多线程的，存在线程切换。java属于高级语言，代码中的一条语句往往需要多条CPU指令执行。count+=1;则需要3条CPU指令。</span><br><span class="line">1.把count从内存中加载到CPU寄存器。</span><br><span class="line">2.在寄存器中执行+1操作</span><br><span class="line">3.把此时count的结果写到内存中（也有可能写到CPU缓存）</span><br><span class="line">此时的任务切换可能发生在任意CPU指令执行后，而不是java中一句代码后。</span><br></pre></td></tr></table></figure>
+<h4 id="2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"><a href="#2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！" class="headerlink" title="2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"></a>2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">前面提到CPU的速度&gt;&gt;I/O,当在一个时间片中，一个进程进行一个I/O操作的时候（读取一个文件），这个时候CPU发出一个指令就可以，但是</span><br><span class="line">I/O操作还会持续把文件读进内存，如果这个时候这个进程还在占有该CPU那么对于此时来讲，这个CPU是浪费的。可以在此时，该进程把自己</span><br><span class="line">标记为“休眠状态”并且让出CPU占有权，直到文件被读进内存后，操作系统唤起该进程，该进程可以继续获取到CPU的使用权。</span><br><span class="line">那么CPU发出一个指令直到文件被读进内存期间，CPU使用权被释放，那么CPU可以做别的事情了，CPU的使用率会提高；此外，如果这个时候有</span><br><span class="line">另外一个进程也在进行读取文件，那么这个读取文件的进程就会排队，磁盘驱动在完成上一个读操作后，发现有新的任务，则会立即启动下一个</span><br><span class="line">读进程，此时IO的使用率也会提高。</span><br><span class="line">早期的操作系统都是基于进程来调度CPU的，不同进程之间是不共享内存空间的，进程之间的任务切换就是切换内存映射地址。而一个进程所创</span><br><span class="line">建的所有的线程都是共享同一个内存空间的，SO,Thread之间进行任务切换就很低的成本了，现在的操作系统基本都是基于线程切换。</span><br><span class="line">JAVA并发程序都是基于多线程的，存在线程切换。java属于高级语言，代码中的一条语句往往需要多条CPU指令执行。count+=1;则需要3条CP</span><br><span class="line">U指令。</span><br><span class="line">1.把count从内存中加载到CPU寄存器。</span><br><span class="line">2.在寄存器中执行+1操作</span><br><span class="line">3.把此时count的结果写到内存中（也有可能写到CPU缓存）</span><br><span class="line">此时的任务切换可能发生在任意CPU指令执行后，而不是java中一句代码后。</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/4.png" alt="线程切换" title="线程切换"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如图：线程切换会造成count+=1原子性问题。结果是1，不是期望的2.</span><br><span class="line">原子性：一个或者多个操作在CPU执行的过程中不被中断的特性。</span><br><span class="line">大头？如何在高级语言层面保证操作的原子性？</span><br></pre></td></tr></table></figure>
-<h3 id="三、编译优化带来的有序性问题。"><a href="#三、编译优化带来的有序性问题。" class="headerlink" title="三、编译优化带来的有序性问题。"></a>三、编译优化带来的有序性问题。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">编译器为了优化性能，会改变程序中语句的先后顺序。“a=6;b=7”会变成&quot;b=7;a=6&quot;这个不会影响程序的最终结果，但是下面：会有问题</span><br><span class="line">双重检查创建单例对象：</span><br><span class="line">public class Singleton &#123;</span><br><span class="line">  static Singleton instance;</span><br><span class="line">  static Singleton getInstance()&#123;</span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        if (instance == null)</span><br><span class="line">          instance = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">1：首先判断instance==null？是，则锁住Singleton.class并且再次检查instance==null？是，则创建Singleton的一个实例。</span><br><span class="line">A,B两个线程同时调用getInstance方法，他们同时发现instance==null，于是同时对Singleton.class加上锁,但此时JVM保证只会有一个线程加锁成功（假设是A），B则会等待。A会创建一个Singleton实例，之后释放锁，B会被唤醒，B会尝试加锁，此时会成功加锁，线程B检查instance==null会发现已经存在了Singleton实例则不会再创建。</span><br><span class="line">但是new操作的时候会出现问题！</span><br><span class="line">我们期望：</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：在内存M上初始化Singleton对象</span><br><span class="line">3：然后M的地址值赋给instance变量</span><br><span class="line">实际上：经过编译优化后！</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：把M的地址值赋值给instance对象</span><br><span class="line">3：最后在M上初始化Singleton</span><br><span class="line">A线程在完成“把M的地址值赋值给instance对象”这一指令之后就直接线程切换给了B线程，然后B线程判断instance！=null（此时都没有进入synchronized里面）但是，此时instance会有空指针异常！</span><br></pre></td></tr></table></figure>
+<h3 id="三、编译优化带来的有序性问题。"><a href="#三、编译优化带来的有序性问题。" class="headerlink" title="三、编译优化带来的有序性问题。"></a>三、编译优化带来的有序性问题。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">编译器为了优化性能，会改变程序中语句的先后顺序。“a=6;b=7”会变成&quot;b=7;a=6&quot;这个不会影响程序的最终结果，但是下面：会有问题</span><br><span class="line">双重检查创建单例对象：</span><br><span class="line">public class Singleton &#123;</span><br><span class="line">  static Singleton instance;</span><br><span class="line">  static Singleton getInstance()&#123;</span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        if (instance == null)</span><br><span class="line">          instance = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">1：首先判断instance==null？是，则锁住Singleton.class并且再次检查instance==null？是，则创建Singleton的一个实例。</span><br><span class="line">A,B两个线程同时调用getInstance方法，他们同时发现instance==null，于是同时对Singleton.class加上锁,但此时JVM保证只会有一个</span><br><span class="line">线程加锁成功（假设是A），B则会等待。A会创建一个Singleton实例，之后释放锁，B会被唤醒，B会尝试加锁，此时会成功加锁，线程B检查</span><br><span class="line">instance==null会发现已经存在了Singleton实例则不会再创建。</span><br><span class="line">但是new操作的时候会出现问题！</span><br><span class="line">我们期望：</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：在内存M上初始化Singleton对象</span><br><span class="line">3：然后M的地址值赋给instance变量</span><br><span class="line">实际上：经过编译优化后！</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：把M的地址值赋值给instance对象</span><br><span class="line">3：最后在M上初始化Singleton</span><br><span class="line">A线程在完成“把M的地址值赋值给instance对象”这一指令之后就直接线程切换给了B线程，然后B线程判断instance！=null（此时都没有进</span><br><span class="line">入synchronized里面）但是，此时instance会有空指针异常！</span><br></pre></td></tr></table></figure>
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">long类型在32位操作系统上不安全？</span><br><span class="line">答案：long64位，所以在32位机器上对long类型的数据操作是由多条CPU指令组合来的，无法保持原子性。</span><br></pre></td></tr></table></figure>
 
       
@@ -417,7 +492,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/10/javacurrent2/" rel="prev" title="2-JMM浅谈">
+              <a href="/2019/03/10/javacurrent3/" rel="prev" title="2-JMM浅谈">
                 2-JMM浅谈 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -485,6 +560,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="少主江衫">
+            
               <p class="site-author-name" itemprop="name">少主江衫</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -496,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -507,7 +584,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -519,6 +596,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LProDreamAll" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hanghangli1993@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -569,6 +662,15 @@
   <span class="author" itemprop="copyrightHolder">少主江衫</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">4.7k</span>
+  
 </div>
 
 
@@ -600,6 +702,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -727,6 +831,323 @@
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 
