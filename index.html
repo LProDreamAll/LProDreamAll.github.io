@@ -302,7 +302,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/25/javacurrent5/" itemprop="url">4-死锁（互斥，占有且等待，不可抢占，循环等待）</a></h1>
+                <a class="post-title-link" href="/2019/03/25/javacurrent5/" itemprop="url">5-线程的生命周期？线程创建的条数？</a></h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-25T21:13:21+08:00">
-                2019-03-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-28T21:19:08+08:00">
+                2019-03-28
               </time>
             
           </span>
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  1.1k
                 </span>
               
 
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  4
                 </span>
               
             </div>
@@ -420,19 +420,19 @@
         
           
             
-        <div id="aplayer-IHTMVhtD" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-UpdQDiyz" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-IHTMVhtD"),
+            element: document.getElementById("aplayer-UpdQDiyz"),
             narrow: false,
             autoplay: true,
             showlrc: false,
             music: {
-              title: "皇后大道东",
-              author: "罗大佑",
-              url: "http://20190313lhh.oss-cn-hangzhou.aliyuncs.com/%E8%92%8B%E5%BF%97%E5%85%89%2C%E7%BD%97%E5%A4%A7%E4%BD%91%20-%20%E7%9A%87%E5%90%8E%E5%A4%A7%E9%81%93%E4%B8%9C.mp3",
+              title: "个人简介",
+              author: "安全着陆",
+              url: "http://20190313lhh.oss-cn-hangzhou.aliyuncs.com/%E5%AE%89%E5%85%A8%E7%9D%80%E9%99%86%20-%20%E4%B8%AA%E4%BA%BA%E7%AE%80%E4%BB%8B.mp3",
               pic: "http://p2.music.126.net/thXkupdKJtuSswDv4u-sow==/68169720928612.jpg",
               lrc: ""
             }
@@ -440,14 +440,27 @@
           window.aplayers || (window.aplayers = []);
           window.aplayers.push(ap);
         </script>
-<h3 id="Stay-Hunger-Stay-Young"><a href="#Stay-Hunger-Stay-Young" class="headerlink" title="Stay Hunger , Stay Young"></a>Stay Hunger , Stay Young</h3><h3 id="那怎么解决死锁问题？"><a href="#那怎么解决死锁问题？" class="headerlink" title="那怎么解决死锁问题？"></a>那怎么解决死锁问题？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前面说了可以使用Account.class作为锁但是这就造成了整个操作变成了串行了。那么性能完全不能接受。下面进行优化！</span><br></pre></td></tr></table></figure>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">具体操作就是在转账的过程中增加转入和转出账本！</span><br><span class="line">1：恰好有转入和转出账本的时候，同时拿走可以进行转账操作。</span><br><span class="line">2：当只有一个账本的时候那就拿走这个账本，等另一个账本被用过。</span><br><span class="line">3：都没有就等两个账本出现。</span><br></pre></td></tr></table></figure>
-<p><img src="https://static001.geekbang.org/resource/image/cb/55/cb18e672732ab76fc61d60bdf66bf855.png" alt="转账操作" title="转账操作"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">代码实现</span><br><span class="line">class Account &#123;</span><br><span class="line">  private int balance;</span><br><span class="line">  // 转账</span><br><span class="line">  void transfer(Account target, int amt)&#123;</span><br><span class="line">    // 锁定转出账户</span><br><span class="line">    synchronized(this) &#123;              </span><br><span class="line">      // 锁定转入账户</span><br><span class="line">      synchronized(target) &#123;           </span><br><span class="line">        if (this.balance &gt; amt) &#123;</span><br><span class="line">          this.balance -= amt;</span><br><span class="line">          target.balance += amt;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br><span class="line">但是会出现死锁问题：用户A想要从A-&gt;B 100元，拿到账户A转出的账本。恰恰这个时候用户B想要转给A。拿到了B的转出账本，而他俩进行下一步</span><br><span class="line">的条件都是需要等对方把账本归还，那就等到死，都等不到。。。。</span><br><span class="line">于是死锁出现了：一组互相竞争资源的线程因为互相等待，导致永久堵塞的现象。</span><br><span class="line">如何避免死锁？</span><br><span class="line">Coffman的大神总结只有下面四个条件同时发生的时候才会出现死锁问题：</span><br><span class="line">1：互斥，共享资源X，Y只能被一个线程占用</span><br><span class="line">2：占有且等待：线程T1占有X资源的时候，再等待资源Y的时候，并没有释放资源X</span><br><span class="line">3：不可抢占：其他的线程不能抢占T1的资源</span><br><span class="line">4：循环等待：T1等待T2的资源，T2等待T1的资源</span><br><span class="line">1一般不会打破，只能从2,3,4下手。</span><br><span class="line">2：一次性申请所有资源</span><br><span class="line">3：占有资源的线程进一步占有其他资源的时候，如果获取不到，可以主动释放他占有的资源。</span><br><span class="line">4：按序申请资源，多个线程申请的时候可以先申请资源序号小的，再申请大的，这样就不存在循环了。</span><br></pre></td></tr></table></figure></p>
-<h3 id="占有且等待的破坏（一次性申请所有资源）"><a href="#占有且等待的破坏（一次性申请所有资源）" class="headerlink" title="占有且等待的破坏（一次性申请所有资源）"></a>占有且等待的破坏（一次性申请所有资源）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">增加管理员：当只有一个账本的时候并不给转账，只有两个转入和转春都存在的时候才能给转账！这样才能保证“一次性申请所有资源”</span><br><span class="line">编码的时候需要增加Allocator ：具有同时申请apply()和同时释放资源free(),在Accout类中Allocator必须是单例的。</span><br><span class="line">public class Allocator &#123;</span><br><span class="line">    </span><br><span class="line">    private List&lt;Object&gt; als =</span><br><span class="line">            new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    // 一次性申请所有资源</span><br><span class="line">    synchronized boolean apply(</span><br><span class="line">            Object from, Object to)&#123;</span><br><span class="line">        if(als.contains(from) ||</span><br><span class="line">                als.contains(to))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            als.add(from);</span><br><span class="line">            als.add(to);</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    // 归还资源</span><br><span class="line">    synchronized void free(</span><br><span class="line">            Object from, Object to)&#123;</span><br><span class="line">        als.remove(from);</span><br><span class="line">        als.remove(to);</span><br><span class="line">    &#125;</span><br><span class="line">    private Allocator() &#123;</span><br><span class="line">        if (SingletonHolder.instance != null) &#123;</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static class SingletonHolder &#123;</span><br><span class="line">        private static Allocator instance = new Allocator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static Allocator getInstance() &#123;</span><br><span class="line">        return SingletonHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Account &#123;</span><br><span class="line">    // actr 应该为单例</span><br><span class="line">    private Allocator actr = Allocator.getInstance();</span><br><span class="line">    private int balance;</span><br><span class="line">    // 转账</span><br><span class="line">    void transfer(Account target, int amt)&#123;</span><br><span class="line">        // 一次性申请转出账户和转入账户，直到成功</span><br><span class="line">        //这里会占用大量资源</span><br><span class="line">        while(!actr.apply(this, target));</span><br><span class="line">     </span><br><span class="line">        try&#123;</span><br><span class="line">            // 锁定转出账户</span><br><span class="line">            synchronized(this)&#123;</span><br><span class="line">                // 锁定转入账户</span><br><span class="line">                synchronized(target)&#123;</span><br><span class="line">                    if (this.balance &gt; amt)&#123;</span><br><span class="line">                        this.balance -= amt;</span><br><span class="line">                        target.balance += amt;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            actr.free(this, target);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="破坏不可抢占条件"><a href="#破坏不可抢占条件" class="headerlink" title="破坏不可抢占条件"></a>破坏不可抢占条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java层面并没有解决这个问题但是jdk层面解决了java.util.concurrent包下的Lock解决了后面聊</span><br></pre></td></tr></table></figure>
-<h3 id="破坏循环等待条件"><a href="#破坏循环等待条件" class="headerlink" title="破坏循环等待条件"></a>破坏循环等待条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">对资源进行排序，按照序号申请资源，给每个账户设置不同的id，然后给id排序进行申请。代码如下：</span><br><span class="line">class Account &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private int balance;</span><br><span class="line"></span><br><span class="line">    // 转账</span><br><span class="line">    void transfer(Account target, int amt) &#123;</span><br><span class="line">        Account left = this;</span><br><span class="line">        Account right = target;</span><br><span class="line">        if (this.id &gt; target.id) &#123;</span><br><span class="line">            left = target;</span><br><span class="line">            right = this;</span><br><span class="line">        &#125;</span><br><span class="line">        // 锁定序号小的账户</span><br><span class="line">        synchronized (left) &#123;</span><br><span class="line">            // 锁定序号大的账户</span><br><span class="line">            synchronized (right) &#123;</span><br><span class="line">                if (this.balance &gt; amt) &#123;</span><br><span class="line">                    this.balance -= amt;</span><br><span class="line">                    target.balance += amt;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronized(Account.class)和while(!actr.apply(this, target));的区别！</span><br><span class="line">synchronized(Account.class) 锁了Account类相关的所有操作。相当于文中说的包场了，只要与Account有关联，通通需要等待当前线程操作完成。</span><br><span class="line">while死循环的方式只锁定了当前操作的两个相关的对象。两种影响到的范围不同。</span><br></pre></td></tr></table></figure>
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">其实有点类似封装的概念把两个账本都拿到封装成一个操作，那对外部来讲就是原子性操作。但是要保证拿到两个账本的操作一定封装成了</span><br><span class="line">一个操作！</span><br></pre></td></tr></table></figure>
+<h3 id="少喝酒！"><a href="#少喝酒！" class="headerlink" title="少喝酒！"></a>少喝酒！</h3><h2 id="线程的生命周期？线程创建的条数？"><a href="#线程的生命周期？线程创建的条数？" class="headerlink" title="线程的生命周期？线程创建的条数？"></a>线程的生命周期？线程创建的条数？</h2><h3 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">初始状态、可运行状态、运行状态、休眠状态和终止状态</span><br></pre></td></tr></table></figure>
+<p><img src="https://static001.geekbang.org/resource/image/9b/e5/9bbc6fa7fb4d631484aa953626cf6ae5.png" alt="线程状态转换图" title="线程状态转换图"></p>
+<h4 id="1-初始状态"><a href="#1-初始状态" class="headerlink" title="1:初始状态"></a>1:初始状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">线程在编程语言层面创建，在操作系统层面并没有被创建</span><br></pre></td></tr></table></figure>
+<h4 id="2-可运行状态"><a href="#2-可运行状态" class="headerlink" title="2:可运行状态"></a>2:可运行状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">线程可以分配CPU执行，此时，在操作系统中线程已经被创建了，可以分配CPU执行</span><br></pre></td></tr></table></figure>
+<h4 id="3-运行状态"><a href="#3-运行状态" class="headerlink" title="3:运行状态"></a>3:运行状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CPU有空闲时，操作系统会分配给一个线程，此时线程的状态变成了运行状态</span><br></pre></td></tr></table></figure>
+<h4 id="4-休眠状态"><a href="#4-休眠状态" class="headerlink" title="4:休眠状态"></a>4:休眠状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行状态的线程如果调用一个堵塞的API，那么线程就会变成休眠状态。同时释放CPU资源，当等待的事件出现了以后才会转换到可运行状态。</span><br></pre></td></tr></table></figure>
+<h4 id="5-终止状态"><a href="#5-终止状态" class="headerlink" title="5:终止状态"></a>5:终止状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行完或者出现异常都会进入终止状态，此时生命周期结束了。</span><br></pre></td></tr></table></figure>
+<h3 id="java中线程的生命周期"><a href="#java中线程的生命周期" class="headerlink" title="java中线程的生命周期"></a>java中线程的生命周期</h3><p><img src="https://static001.geekbang.org/resource/image/3f/8c/3f6c6bf95a6e8627bdf3cb621bbb7f8c.png" alt="java中线程的状态转换图" title="java中线程的状态转换图"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jvm封装了运行和可运行状态！</span><br><span class="line">1:NEW(初始状态)</span><br><span class="line">2:RUNNABLE(可运行状态&amp;&amp;运行状态)</span><br><span class="line">3:BLOCK(堵塞状态)</span><br><span class="line">4:WAITING(无限时等待)</span><br><span class="line">5:TIMED_WAITING(有限时等待)</span><br><span class="line">6:TERMINATED（终止状态)</span><br></pre></td></tr></table></figure></p>
+<h4 id="RUNNABLE-gt-BLOCK"><a href="#RUNNABLE-gt-BLOCK" class="headerlink" title="RUNNABLE-&gt;BLOCK"></a>RUNNABLE-&gt;BLOCK</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">synchronized修饰的代码块：多个线程同时访问是等待隐式锁才会等待。调用堵塞API时，操作系统的线程是堵塞状态，但是java的线程状态</span><br><span class="line">是RUNNABLE。</span><br></pre></td></tr></table></figure>
+<h4 id="RUNNABLE-gt-WAITING"><a href="#RUNNABLE-gt-WAITING" class="headerlink" title="RUNNABLE-&gt;WAITING"></a>RUNNABLE-&gt;WAITING</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1:获得synchronized隐式锁的线程调用Object.wait()</span><br><span class="line">2:THread.join().main中执行A，调用A.join():main线程需要等待A线程执行完。此时main线程由RUNNABLE-&gt;WAITING，A完成，mian-&gt;</span><br><span class="line">RUNNABLE</span><br><span class="line">3:LockSupport.park()调用 LockSupport.park() 方法，当前线程会阻塞，线程的状态会从 RUNNABLE 转换到 WAITIN调用 LockSu</span><br><span class="line">pport.unpark(Thread thread)则相反</span><br></pre></td></tr></table></figure>
+<h4 id="RUNNABLE-gt-TIMED-WAITING-多了个超时参数"><a href="#RUNNABLE-gt-TIMED-WAITING-多了个超时参数" class="headerlink" title="RUNNABLE-&gt;TIMED_WAITING(多了个超时参数)"></a>RUNNABLE-&gt;TIMED_WAITING(多了个超时参数)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1:Thread.sleep(long millis)</span><br><span class="line">2:Object.wait(long timeout) 方法</span><br><span class="line">3:Thread.join(long millis) 方法</span><br><span class="line">4:LockSupport.parkNanos(Object blocker, long deadline)</span><br><span class="line">5:LockSupport.parkUntil(long deadline)</span><br></pre></td></tr></table></figure>
+<h4 id="NEW-gt-RUNNABLE"><a href="#NEW-gt-RUNNABLE" class="headerlink" title="NEW-&gt;RUNNABLE"></a>NEW-&gt;RUNNABLE</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 自定义线程对象</span><br><span class="line">class MyThread extends Thread &#123;</span><br><span class="line">  public void run() &#123;</span><br><span class="line">    // 线程需要执行的代码</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 创建线程对象</span><br><span class="line">MyThread myThread = new MyThread();</span><br><span class="line"></span><br><span class="line">MyThread myThread = new MyThread();</span><br><span class="line">// 从 NEW 状态转换到 RUNNABLE 状态</span><br><span class="line">myThread.start()；</span><br></pre></td></tr></table></figure>
+<h4 id="RUNNABLE-gt-TERMINATED"><a href="#RUNNABLE-gt-TERMINATED" class="headerlink" title="RUNNABLE-&gt;TERMINATED"></a>RUNNABLE-&gt;TERMINATED</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1-执行完run()</span><br><span class="line">2-线程执行时抛出异常</span><br><span class="line">3-stop()//已经不再使用</span><br><span class="line">4-interrupt()</span><br><span class="line">其他线程可以调用interrupt()用来阻断别的线程。</span><br><span class="line">isInterrupted可以判断是否被自己中断了</span><br></pre></td></tr></table></figure>
+<h3 id="线程中断后退出while的循环"><a href="#线程中断后退出while的循环" class="headerlink" title="线程中断后退出while的循环"></a>线程中断后退出while的循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Thread th = Thread.currentThread();</span><br><span class="line">while(true) &#123;</span><br><span class="line">  if(th.isInterrupted()) &#123;</span><br><span class="line">    break;</span><br><span class="line">  &#125;</span><br><span class="line">  // 省略业务代码无数</span><br><span class="line">  try &#123;</span><br><span class="line">  //此处sleep期间会抛出异常，那么就会一直循环</span><br><span class="line">    Thread.sleep(100);</span><br><span class="line">  &#125;catch (InterruptedException e)&#123;</span><br><span class="line">  //此处应该手动中断线程</span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程创建的条数"><a href="#线程创建的条数" class="headerlink" title="线程创建的条数"></a>线程创建的条数</h2><h3 id="为什么要使用多线程？"><a href="#为什么要使用多线程？" class="headerlink" title="为什么要使用多线程？"></a>为什么要使用多线程？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1-降低延迟</span><br><span class="line">发出请求到收到响应的时间</span><br><span class="line">2-提高吞吐量</span><br><span class="line">单位时间内处理请求的数量</span><br></pre></td></tr></table></figure>
+<h3 id="多线程的应用场景"><a href="#多线程的应用场景" class="headerlink" title="多线程的应用场景"></a>多线程的应用场景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">‘降低延迟，提高吞吐量’-&gt;1算法优化 2将硬件的性能发挥到极致</span><br><span class="line">在并发领域中就是提高硬件的利用率：提升I/O的利用率和CPU的利用率。</span><br></pre></td></tr></table></figure>
+<h4 id="如何提高？"><a href="#如何提高？" class="headerlink" title="如何提高？"></a>如何提高？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">假设线程按照CPU计算和I/O操作交叉执行的方式运行，且耗时都是1:1.如图那么，CPU和I/O的利用率都是50%</span><br></pre></td></tr></table></figure>
+<p><img src="https://static001.geekbang.org/resource/image/d1/22/d1d7dfa1d574356cc5cb1019a4b7ca22.png" alt="单线程执行示意图" title="单线程执行示意图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果有两个线程按照A-&gt;CPU,B-&gt;I/O。A-&gt;I/O,B-&gt;CPU。那么CPU和I/O的利用率都是100%</span><br></pre></td></tr></table></figure>
+<p><img src="https://static001.geekbang.org/resource/image/68/2c/68a415b31b72844eb81889e9f0eb3f2c.png" alt="多线程执行示意图" title="多线程执行示意图"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当CPU和I/O利用率都比较低可以选择多线程来增加利用率。</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">对于CPU密集型：多线程就是为了提升多核CPU的利用率，一般是CPU核数+1个线程数。</span><br><span class="line">因为当一个线程出现问题时候，这个线程可以马上顶上！</span><br><span class="line">对于I/O密集型，CPU：I/O = 1：n -&gt; 可以是 (n+1)个线程最合适，多核CPU-&gt;(n+1)*CPU核数最佳</span><br></pre></td></tr></table></figure>
 
           
         
@@ -633,12 +646,12 @@
         
           
             
-        <div id="aplayer-qvmWjIgt" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-bKMCFkpI" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-qvmWjIgt"),
+            element: document.getElementById("aplayer-bKMCFkpI"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -851,12 +864,12 @@
         
           
             
-        <div id="aplayer-hAwOtVBh" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-XsJCRRMJ" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-hAwOtVBh"),
+            element: document.getElementById("aplayer-XsJCRRMJ"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1074,12 +1087,12 @@
       
         
           <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2>
-        <div id="aplayer-IetxPrlw" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-LNLMQKky" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-IetxPrlw"),
+            element: document.getElementById("aplayer-LNLMQKky"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1286,12 +1299,12 @@
       
         
           <h2 id="导语：把握关键的6秒时差"><a href="#导语：把握关键的6秒时差" class="headerlink" title="导语：把握关键的6秒时差"></a>导语：把握关键的6秒时差</h2><h3 id="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><a href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！" class="headerlink" title="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"></a>并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</h3><h2 id="大纲-："><a href="#大纲-：" class="headerlink" title="大纲 ："></a>大纲 ：</h2>
-        <div id="aplayer-WaapCyoG" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-YTBoqsPa" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-WaapCyoG"),
+            element: document.getElementById("aplayer-YTBoqsPa"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1480,7 +1493,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">8.2k</span>
+    <span title="Site words total count">8k</span>
   
 </div>
 
