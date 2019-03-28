@@ -283,6 +283,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/28/javacurrent6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="少主江衫">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="少主江衫的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/28/javacurrent6/" itemprop="url">6-为什么局部变量是线程安全的？并发之面向对象！</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T22:05:17+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-28T22:13:25+08:00">
+                2019-03-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA并发/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+        <div id="aplayer-JvefVlRy" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-JvefVlRy"),
+            narrow: false,
+            autoplay: true,
+            showlrc: false,
+            music: {
+              title: "画师",
+              author: "梅粮新",
+              url: "http://20190313lhh.oss-cn-hangzhou.aliyuncs.com/%E6%A2%85%E7%B2%AE%E6%96%B0%20-%20%E7%94%BB%E5%B8%88.mp3",
+              pic: "http://p1.music.126.net/FPLF1xShAN9dMkrTNfnLlg==/109951163926963485.jpg",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
+<h3 id="没有什么是不累的。没有什么是不难的。鹰击长空-鱼翔浅底。"><a href="#没有什么是不累的。没有什么是不难的。鹰击长空-鱼翔浅底。" class="headerlink" title="没有什么是不累的。没有什么是不难的。鹰击长空,鱼翔浅底。"></a>没有什么是不累的。没有什么是不难的。鹰击长空,鱼翔浅底。</h3><h2 id="为什么局部变量是线程安全的？并发之面向对象！"><a href="#为什么局部变量是线程安全的？并发之面向对象！" class="headerlink" title="为什么局部变量是线程安全的？并发之面向对象！"></a>为什么局部变量是线程安全的？并发之面向对象！</h2><h3 id="为什么局部变量是线程安全的？"><a href="#为什么局部变量是线程安全的？" class="headerlink" title="为什么局部变量是线程安全的？"></a>为什么局部变量是线程安全的？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 返回斐波那契数列</span><br><span class="line">int[] fibonacci(int n) &#123;</span><br><span class="line">  // 创建结果数组</span><br><span class="line">  int[] r = new int[n];</span><br><span class="line">  // 初始化第一、第二个数</span><br><span class="line">  r[0] = r[1] = 1;  // ①</span><br><span class="line">  // 计算 2..n</span><br><span class="line">  for(int i = 2; i &lt; n; i++) &#123;</span><br><span class="line">      r[i] = r[i-2] + r[i-1];</span><br><span class="line">  &#125;</span><br><span class="line">  return r;</span><br><span class="line">&#125;</span><br><span class="line">上述代码局部变量数组r并不会存在数据竞争。。。</span><br><span class="line">首先在CPU层面是没有方法概念的，只有一条条的指令，编译程序负责把高级语言中方法转换成一条条指令。如下：</span><br><span class="line">int a = 7；</span><br><span class="line">int[] b = fibonacci(a);</span><br><span class="line">int[] c = b;</span><br><span class="line">第一行声明一个变量a，2调用方法fibonacci(a)，3把b赋值给c。</span><br></pre></td></tr></table></figure>
+<p><img src="https://static001.geekbang.org/resource/image/9b/1f/9bd881b545e1c67142486f6594dc9d1f.png" alt="方法调用过程" title="方法调用过程"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">当调用fibonacci(a)的时候，CPU要先找到方法的地址，然后跳转到这个地址执行代码，执行完fibonacci(a)方法要能够返回。然后找到int[] c</span><br><span class="line"> = b的地址，再跳到这个地址去执行。。CPU通过CPU的堆栈寄存器找到方法参数和返回地址。CPU支持调用栈（先进后出！）</span><br><span class="line">A,B,C:A-&gt;B-&gt;C。每个方法在调用栈里都有自己的独立空间，称为栈帧。每个栈帧里面都有对应方法需要的参数和返回地址。当调用方法时</span><br><span class="line">会创建新的栈帧，并压入调用栈，当方法返回时候，对应的栈帧就会被自动弹出。栈帧和方法同存活。</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://static001.geekbang.org/resource/image/67/c7/674bb47feccbf55cf0b6acc5c92e4fc7.png" alt="调用栈结构" title="调用栈结构"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">局部变量的作用域是方法内部，和方法同生死，和栈帧同生死-&gt;局部变量被放到了调用栈里。SO:</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://static001.geekbang.org/resource/image/ec/9c/ece8c32d23e4777c370f594c97762a9c.png" alt="保护局部变量的调用栈结构" title="保护局部变量的调用栈结构"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个线程都有自己的独立栈，从而没有线程安全问题。</span><br><span class="line">线程封闭出现了：仅仅在单线程内访问数据，由于不存在共享所以不同步也没有问题。</span><br><span class="line">java中数据库连接connection一旦被一个线程获取后在这个线程关闭connection这段时间内将不会被其他线程获取，so灭有问题。</span><br></pre></td></tr></table></figure></p>
+<h3 id="并发之面向对象！"><a href="#并发之面向对象！" class="headerlink" title="并发之面向对象！"></a>并发之面向对象！</h3><h4 id="封装共享变量"><a href="#封装共享变量" class="headerlink" title="封装共享变量"></a>封装共享变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">将共享变量作为对象属性封装在内部，对所有的能访问到的涉及到共享变量的公共方法指定并发的访问策略。</span><br><span class="line">public class Counter &#123;</span><br><span class="line">  private long value;</span><br><span class="line">  synchronized long get()&#123;</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line">  synchronized long addOne()&#123;</span><br><span class="line">    return ++value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Counter是个线程安全的类。工作中经常使用final。</span><br></pre></td></tr></table></figure>
+<h4 id="识别共享变量之间的约束条件"><a href="#识别共享变量之间的约束条件" class="headerlink" title="识别共享变量之间的约束条件"></a>识别共享变量之间的约束条件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">下面的代码灭有线程安全问题</span><br><span class="line">public class SafeWM &#123;</span><br><span class="line">  // 库存上限</span><br><span class="line">  private final AtomicLong upper =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 库存下限</span><br><span class="line">  private final AtomicLong lower =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 设置库存上限</span><br><span class="line">  void setUpper(long v)&#123;</span><br><span class="line">    upper.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 设置库存下限</span><br><span class="line">  void setLower(long v)&#123;</span><br><span class="line">    lower.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 省略其他业务代码</span><br><span class="line">&#125;</span><br><span class="line">库存管理中有个合理库存概念，有上下限。所以上面的代码需要修改一下：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class SafeWM &#123;</span><br><span class="line">  // 库存上限</span><br><span class="line">  private final AtomicLong upper =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 库存下限</span><br><span class="line">  private final AtomicLong lower =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 设置库存上限</span><br><span class="line">  void setUpper(long v)&#123;</span><br><span class="line">    // 检查参数合法性</span><br><span class="line">    if (v &lt; lower.get()) &#123;</span><br><span class="line">      throw new IllegalArgumentException();</span><br><span class="line">    &#125;</span><br><span class="line">    upper.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 设置库存下限</span><br><span class="line">  void setLower(long v)&#123;</span><br><span class="line">    // 检查参数合法性</span><br><span class="line">    if (v &gt; upper.get()) &#123;</span><br><span class="line">      throw new IllegalArgumentException();</span><br><span class="line">    &#125;</span><br><span class="line">    lower.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 省略其他业务代码</span><br><span class="line">&#125;</span><br><span class="line">假设库存[2,10],但是这个时候A-&gt;setUpper(5),B-&gt;setLower(7)假设A,B同时发生A中5&gt;2,B中7&lt;10可以。而此时的逻辑则不正确。</span><br><span class="line">所以改成：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class SafeWM &#123;</span><br><span class="line">    // 库存上限</span><br><span class="line">    private final AtomicLong upper =</span><br><span class="line">            new AtomicLong(0);</span><br><span class="line">    // 库存下限</span><br><span class="line">    private final AtomicLong lower =</span><br><span class="line">            new AtomicLong(0);</span><br><span class="line"></span><br><span class="line">    // 设置库存上限</span><br><span class="line">    void setUpper(long v) &#123;</span><br><span class="line">        // 检查参数合法性</span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">            if (v &gt;= lower.get()) &#123;</span><br><span class="line">                upper.set(v);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 设置库存下限</span><br><span class="line">    void setLower(long v) &#123;</span><br><span class="line">        // 检查参数合法性</span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">            if (v &lt;= upper.get()) &#123;</span><br><span class="line">                lower.set(v);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 省略其他业务代码</span><br><span class="line">&#125;</span><br><span class="line">此时线程是安全的，业务也满足了。嘘嘘嘘(松一口气!)</span><br></pre></td></tr></table></figure>
+<h4 id="递归调用太深会导致栈内存溢出？"><a href="#递归调用太深会导致栈内存溢出？" class="headerlink" title="递归调用太深会导致栈内存溢出？"></a>递归调用太深会导致栈内存溢出？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原因：每次调用一次就会有新的栈帧出现，栈帧是消耗内存的。</span><br><span class="line">1-所有递归方法都可以使用非递归实现</span><br><span class="line">2-合理设置栈的大小</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/25/javacurrent5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -420,12 +633,12 @@
         
           
             
-        <div id="aplayer-UpdQDiyz" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-eyrGElkP" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-UpdQDiyz"),
+            element: document.getElementById("aplayer-eyrGElkP"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -646,12 +859,12 @@
         
           
             
-        <div id="aplayer-bKMCFkpI" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-vPXGQOET" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-bKMCFkpI"),
+            element: document.getElementById("aplayer-vPXGQOET"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -864,12 +1077,12 @@
         
           
             
-        <div id="aplayer-XsJCRRMJ" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-CVuEnFRN" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-XsJCRRMJ"),
+            element: document.getElementById("aplayer-CVuEnFRN"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1087,12 +1300,12 @@
       
         
           <h2 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h2>
-        <div id="aplayer-LNLMQKky" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-aLuZaILx" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-LNLMQKky"),
+            element: document.getElementById("aplayer-aLuZaILx"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1299,12 +1512,12 @@
       
         
           <h2 id="导语：把握关键的6秒时差"><a href="#导语：把握关键的6秒时差" class="headerlink" title="导语：把握关键的6秒时差"></a>导语：把握关键的6秒时差</h2><h3 id="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><a href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！" class="headerlink" title="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"></a>并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</h3><h2 id="大纲-："><a href="#大纲-：" class="headerlink" title="大纲 ："></a>大纲 ：</h2>
-        <div id="aplayer-YTBoqsPa" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-AvcaWkmG" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-YTBoqsPa"),
+            element: document.getElementById("aplayer-AvcaWkmG"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -1413,7 +1626,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1493,7 +1706,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">8k</span>
+    <span title="Site words total count">9.2k</span>
   
 </div>
 
