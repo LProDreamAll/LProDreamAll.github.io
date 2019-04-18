@@ -79,22 +79,21 @@
 
 
 
-<meta name="description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-NIUEuKYA&quot;),">
+<meta name="description" content="var ap = new APlayer({             element: document.getElementById(&quot;aplayer-soIUuMnv&quot;),             narrow: false,             autoplay: true,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1-学习java并发">
-<meta property="og:url" content="https://lprodreamall.github.io/2019/03/10/javacurrent1/index.html">
+<meta property="og:title" content="6-为什么局部变量是线程安全的？并发之面向对象！">
+<meta property="og:url" content="https://lprodreamall.github.io/2019/03/28/javacurrentcode1/index.html">
 <meta property="og:site_name" content="少·D·北衫的博客">
-<meta property="og:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-NIUEuKYA&quot;),">
+<meta property="og:description" content="var ap = new APlayer({             element: document.getElementById(&quot;aplayer-soIUuMnv&quot;),             narrow: false,             autoplay: true,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/4.png">
-<meta property="og:updated_time" content="2019-03-30T13:30:37.800Z">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/9b/1f/9bd881b545e1c67142486f6594dc9d1f.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/67/c7/674bb47feccbf55cf0b6acc5c92e4fc7.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/ec/9c/ece8c32d23e4777c370f594c97762a9c.png">
+<meta property="og:updated_time" content="2019-03-30T13:30:37.820Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="1-学习java并发">
-<meta name="twitter:description" content="导语：把握关键的6秒时差并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！大纲 ：                                                   var ap = new APlayer({             element: document.getElementById(&quot;aplayer-NIUEuKYA&quot;),">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png">
+<meta name="twitter:title" content="6-为什么局部变量是线程安全的？并发之面向对象！">
+<meta name="twitter:description" content="var ap = new APlayer({             element: document.getElementById(&quot;aplayer-soIUuMnv&quot;),             narrow: false,             autoplay: true,">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/9b/1f/9bd881b545e1c67142486f6594dc9d1f.png">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://lprodreamall.github.io/2019/03/10/javacurrent1/">
+  <link rel="canonical" href="https://lprodreamall.github.io/2019/03/28/javacurrentcode1/">
 
 
 
 
 
-  <title>1-学习java并发 | 少·D·北衫的博客</title>
+  <title>6-为什么局部变量是线程安全的？并发之面向对象！ | 少·D·北衫的博客</title>
   
 
 
@@ -291,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/10/javacurrent1/">
+    <link itemprop="mainEntityOfPage" href="https://lprodreamall.github.io/2019/03/28/javacurrentcode1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="少·D·北衫">
@@ -308,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">1-学习java并发</h1>
+          <h1 class="post-title" itemprop="name headline">6-为什么局部变量是线程安全的？并发之面向对象！</h1>
         
 
         <div class="post-meta">
@@ -320,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T12:29:44+08:00">
-                2019-03-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T22:15:30+08:00">
+                2019-03-28
               </time>
             
 
@@ -355,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA并发/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA并发</span>
+                  <a href="/categories/JAVA并发之代码设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA并发之代码设计</span>
                   </a>
                 </span>
 
@@ -386,7 +385,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  1.2k
                 </span>
               
 
@@ -402,7 +401,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  4
                 </span>
               
             </div>
@@ -423,46 +422,36 @@
       
 
       
-        <h2 id="导语：把握关键的6秒时差"><a href="#导语：把握关键的6秒时差" class="headerlink" title="导语：把握关键的6秒时差"></a>导语：把握关键的6秒时差</h2><h3 id="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><a href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！" class="headerlink" title="并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"></a>并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</h3><h2 id="大纲-："><a href="#大纲-：" class="headerlink" title="大纲 ："></a>大纲 ：</h2>
-        <div id="aplayer-NIUEuKYA" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        
+        <div id="aplayer-soIUuMnv" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-NIUEuKYA"),
+            element: document.getElementById("aplayer-soIUuMnv"),
             narrow: false,
             autoplay: true,
             showlrc: false,
             music: {
-              title: "只想要你知道",
-              author: "鬼卞",
-              url: "http://20190313lhh.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AA%E6%83%B3%E8%A6%81%E4%BD%A0%E7%9F%A5%E9%81%93.mp3",
-              pic: "http://p2.music.126.net/6cxatxCqTNVhS4YcT5wGFQ==/109951163172559495.jpg",
+              title: "画师",
+              author: "梅粮新",
+              url: "http://20190313lhh.oss-cn-hangzhou.aliyuncs.com/%E6%A2%85%E7%B2%AE%E6%96%B0%20-%20%E7%94%BB%E5%B8%88.mp3",
+              pic: "http://p1.music.126.net/FPLF1xShAN9dMkrTNfnLlg==/109951163926963485.jpg",
               lrc: ""
             }
           });
           window.aplayers || (window.aplayers = []);
           window.aplayers.push(ap);
         </script>
-<p> <img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/1.png" alt="并发编程大纲" title="并发编程大纲"></p>
-<h2 id="简单介绍：分工，同步，互斥"><a href="#简单介绍：分工，同步，互斥" class="headerlink" title="简单介绍：分工，同步，互斥"></a>简单介绍：分工，同步，互斥</h2><h3 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">任务分解：多线程实现。Java SDK中Executor,Fork/Join ,Future。</span><br><span class="line">模式：生产-消费者，Worker-Thread(spark集群)，Thread-Per-Message。（合理的结合生活场景。）</span><br></pre></td></tr></table></figure>
-<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个线程完成了一个任务，如何通知后续的任务线程开工。Future,CountDownLatch、CyclicBarrier、Phaser、Exchanger。</span><br><span class="line">核心是管程。</span><br></pre></td></tr></table></figure>
-<h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分工，同步解决的是性能问题。互斥讲的是线程安全问题--同一时刻只允许一个线程访问共享变量。JAVA：synchronized，lock；</span><br><span class="line">Java SDK 里提供的 ReadWriteLock、StampedLock 就可以优化读多写少场景下锁的性能，CAS更好！</span><br><span class="line">不共享变量或者只允许读：ThreadLocal，final，Copy-on-Write模式。</span><br></pre></td></tr></table></figure>
-<h2 id="可见性，原子性，有序性就是并发的源头"><a href="#可见性，原子性，有序性就是并发的源头" class="headerlink" title="可见性，原子性，有序性就是并发的源头"></a>可见性，原子性，有序性就是并发的源头</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">并发(concurrency)：1:在同一时间间隔内，一个cpu,轮流执行多个任务(线程)。</span><br><span class="line">并行(parallellism)：1:讲究同时性--多个cpu同时执行多个任务(线程)。</span><br></pre></td></tr></table></figure>
-<h3 id="并发程序之幕后"><a href="#并发程序之幕后" class="headerlink" title="并发程序之幕后"></a>并发程序之幕后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CPU,内存，I/O三者的速度差异-&gt;核心矛盾</span><br><span class="line">CPU&gt;&gt;内存&gt;&gt;I/O（天-&gt;年-&gt;1000年）</span><br><span class="line">程序中大部分代码会涉及访问操作系统内存+I/O，根据木桶理论(最短的那块板子，决定了一只木桶能装多少水！)，</span><br><span class="line">所以整个程序的性能取决于I/O读写操作。仅单方面提高CPU性能是无效的。目前合理利用CPU性能，平衡这三者的速度差异，计算机</span><br><span class="line">体系机构，操作系统，编译程序分别作了：</span><br><span class="line">    1.CPU增加了缓存-&gt;均衡了与内存的速度差异！</span><br><span class="line">    2.操作系统增加了进程、线程分时复用CPU，为了均衡CPU和I/O的速度差异。</span><br><span class="line">    3.编译程序优化了指令执行次序，使得缓存能够得到更加合理的使用。</span><br><span class="line">   核心矛盾就是并发程序的诡异问题的根源！</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="一、CPU缓存导致的可见性问题"><a href="#一、CPU缓存导致的可见性问题" class="headerlink" title="一、CPU缓存导致的可见性问题"></a>一、CPU缓存导致的可见性问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核CPU缓存和内存的数据一致性问题很好解决！下图CPU和内存的关系图！</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/2.png" alt="单个CPU缓存导致的可见性问题" title="单个CPU缓存导致的可见性问题"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">可见性：一个线程对共享变量的修改，另外一个线程能立刻看到！</span><br><span class="line">单核CPU上多个线程操作同一个CPU的缓存，一个线程对缓存的写，对另一个线程来说一定是可见的。上图：线程A和B同时操作同一个CPU的缓存，</span><br><span class="line">所以A更新了V的值，B之后再访问一定是拿到的最新的值。</span><br><span class="line">多核CPU,每个cpu都有自己的缓存！</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/3.png" alt="多个CPU缓存导致的可见性问题" title="多个CPU缓存导致的可见性问题"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">此时A线程操作的是CPU-1上的缓存，B线程操作的是CPU-2上面的缓存，A线程对变量V的操作对于B线程来讲就是隐藏的。</span><br><span class="line">public class Test &#123;</span><br><span class="line">  private long count = 0;</span><br><span class="line">  private void add10K() &#123;</span><br><span class="line">    int idx = 0;</span><br><span class="line">    while(idx++ &lt; 10000) &#123;</span><br><span class="line">      count += 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  public static long calc() &#123;</span><br><span class="line">    final Test test = new Test();</span><br><span class="line">    // 创建两个线程，执行 add() 操作</span><br><span class="line">    Thread th1 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread th2 = new Thread(()-&gt;&#123;</span><br><span class="line">      test.add10K();</span><br><span class="line">    &#125;);</span><br><span class="line">    // 启动两个线程</span><br><span class="line">    th1.start();</span><br><span class="line">    th2.start();</span><br><span class="line">    // 等待两个线程执行结束</span><br><span class="line">    th1.join();</span><br><span class="line">    th2.join();</span><br><span class="line">    return count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">执行calc()方法会发现，打印结果小于20000，因为A，B两个线程启动的时候会被放到不同的CPU中执行，而此时只有一个内存，A从内存中把</span><br><span class="line">count读出来放到cpu缓存中+1,B也是这样，完了再把count放到内存中。当A,B线程同时发生的时候，会发现内存中的值为1，而不是我们期望的2。</span><br></pre></td></tr></table></figure>
-<h3 id="二、线程切换-带来原子性问题"><a href="#二、线程切换-带来原子性问题" class="headerlink" title="二、线程切换-带来原子性问题"></a>二、线程切换-带来原子性问题</h3><h4 id="1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"><a href="#1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。" class="headerlink" title="1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"></a>1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单核操作系统允许某个进程A执行一段时间-50ms，过了50ms会重新选择一个进程B来执行（线程切换），此时A线程不占有CPU，这个50ms叫做“时间片”。</span><br></pre></td></tr></table></figure>
-<h4 id="2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"><a href="#2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！" class="headerlink" title="2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"></a>2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">前面提到CPU的速度&gt;&gt;I/O,当在一个时间片中，一个进程进行一个I/O操作的时候（读取一个文件），这个时候CPU发出一个指令就可以，但是</span><br><span class="line">I/O操作还会持续把文件读进内存，如果这个时候这个进程还在占有该CPU那么对于此时来讲，这个CPU是浪费的。可以在此时，该进程把自己</span><br><span class="line">标记为“休眠状态”并且让出CPU占有权，直到文件被读进内存后，操作系统唤起该进程，该进程可以继续获取到CPU的使用权。</span><br><span class="line">那么CPU发出一个指令直到文件被读进内存期间，CPU使用权被释放，那么CPU可以做别的事情了，CPU的使用率会提高；此外，如果这个时候有</span><br><span class="line">另外一个进程也在进行读取文件，那么这个读取文件的进程就会排队，磁盘驱动在完成上一个读操作后，发现有新的任务，则会立即启动下一个</span><br><span class="line">读进程，此时IO的使用率也会提高。</span><br><span class="line">早期的操作系统都是基于进程来调度CPU的，不同进程之间是不共享内存空间的，进程之间的任务切换就是切换内存映射地址。而一个进程所创</span><br><span class="line">建的所有的线程都是共享同一个内存空间的，SO,Thread之间进行任务切换就很低的成本了，现在的操作系统基本都是基于线程切换。</span><br><span class="line">JAVA并发程序都是基于多线程的，存在线程切换。java属于高级语言，代码中的一条语句往往需要多条CPU指令执行。count+=1;则需要3条CP</span><br><span class="line">U指令。</span><br><span class="line">1.把count从内存中加载到CPU寄存器。</span><br><span class="line">2.在寄存器中执行+1操作</span><br><span class="line">3.把此时count的结果写到内存中（也有可能写到CPU缓存）</span><br><span class="line">此时的任务切换可能发生在任意CPU指令执行后，而不是java中一句代码后。</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/LProDreamAll/MyImage/master/20190310/4.png" alt="线程切换" title="线程切换"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如图：线程切换会造成count+=1原子性问题。结果是1，不是期望的2.</span><br><span class="line">原子性：一个或者多个操作在CPU执行的过程中不被中断的特性。</span><br><span class="line">大头？如何在高级语言层面保证操作的原子性？</span><br></pre></td></tr></table></figure>
-<h3 id="三、编译优化带来的有序性问题。"><a href="#三、编译优化带来的有序性问题。" class="headerlink" title="三、编译优化带来的有序性问题。"></a>三、编译优化带来的有序性问题。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">编译器为了优化性能，会改变程序中语句的先后顺序。“a=6;b=7”会变成&quot;b=7;a=6&quot;这个不会影响程序的最终结果，但是下面：会有问题</span><br><span class="line">双重检查创建单例对象：</span><br><span class="line">public class Singleton &#123;</span><br><span class="line">  static Singleton instance;</span><br><span class="line">  static Singleton getInstance()&#123;</span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        if (instance == null)</span><br><span class="line">          instance = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">1：首先判断instance==null？是，则锁住Singleton.class并且再次检查instance==null？是，则创建Singleton的一个实例。</span><br><span class="line">A,B两个线程同时调用getInstance方法，他们同时发现instance==null，于是同时对Singleton.class加上锁,但此时JVM保证只会有一个</span><br><span class="line">线程加锁成功（假设是A），B则会等待。A会创建一个Singleton实例，之后释放锁，B会被唤醒，B会尝试加锁，此时会成功加锁，线程B检查</span><br><span class="line">instance==null会发现已经存在了Singleton实例则不会再创建。</span><br><span class="line">但是new操作的时候会出现问题！</span><br><span class="line">我们期望：</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：在内存M上初始化Singleton对象</span><br><span class="line">3：然后M的地址值赋给instance变量</span><br><span class="line">实际上：经过编译优化后！</span><br><span class="line">1：分配一块内存M</span><br><span class="line">2：把M的地址值赋值给instance对象</span><br><span class="line">3：最后在M上初始化Singleton</span><br><span class="line">A线程在完成“把M的地址值赋值给instance对象”这一指令之后就直接线程切换给了B线程，然后B线程判断instance！=null（此时都没有进</span><br><span class="line">入synchronized里面）但是，此时instance会有空指针异常！</span><br></pre></td></tr></table></figure>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">long类型在32位操作系统上不安全？</span><br><span class="line">答案：long64位，所以在32位机器上对long类型的数据操作是由多条CPU指令组合来的，无法保持原子性。</span><br></pre></td></tr></table></figure>
-
+<h3 id="没有什么是不累的。没有什么是不难的。鹰击长空-鱼翔浅底。"><a href="#没有什么是不累的。没有什么是不难的。鹰击长空-鱼翔浅底。" class="headerlink" title="没有什么是不累的。没有什么是不难的。鹰击长空,鱼翔浅底。"></a>没有什么是不累的。没有什么是不难的。鹰击长空,鱼翔浅底。</h3><h2 id="为什么局部变量是线程安全的？并发之面向对象！"><a href="#为什么局部变量是线程安全的？并发之面向对象！" class="headerlink" title="为什么局部变量是线程安全的？并发之面向对象！"></a>为什么局部变量是线程安全的？并发之面向对象！</h2><h3 id="为什么局部变量是线程安全的？"><a href="#为什么局部变量是线程安全的？" class="headerlink" title="为什么局部变量是线程安全的？"></a>为什么局部变量是线程安全的？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 返回斐波那契数列</span><br><span class="line">int[] fibonacci(int n) &#123;</span><br><span class="line">  // 创建结果数组</span><br><span class="line">  int[] r = new int[n];</span><br><span class="line">  // 初始化第一、第二个数</span><br><span class="line">  r[0] = r[1] = 1;  // ①</span><br><span class="line">  // 计算 2..n</span><br><span class="line">  for(int i = 2; i &lt; n; i++) &#123;</span><br><span class="line">      r[i] = r[i-2] + r[i-1];</span><br><span class="line">  &#125;</span><br><span class="line">  return r;</span><br><span class="line">&#125;</span><br><span class="line">上述代码局部变量数组r并不会存在数据竞争。。。</span><br><span class="line">首先在CPU层面是没有方法概念的，只有一条条的指令，编译程序负责把高级语言中方法转换成一条条指令。如下：</span><br><span class="line">int a = 7；</span><br><span class="line">int[] b = fibonacci(a);</span><br><span class="line">int[] c = b;</span><br><span class="line">第一行声明一个变量a，2调用方法fibonacci(a)，3把b赋值给c。</span><br></pre></td></tr></table></figure>
+<p><img src="https://static001.geekbang.org/resource/image/9b/1f/9bd881b545e1c67142486f6594dc9d1f.png" alt="方法调用过程" title="方法调用过程"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">当调用fibonacci(a)的时候，CPU要先找到方法的地址，然后跳转到这个地址执行代码，执行完fibonacci(a)方法要能够返回。然后找到int[] c</span><br><span class="line"> = b的地址，再跳到这个地址去执行。。CPU通过CPU的堆栈寄存器找到方法参数和返回地址。CPU支持调用栈（先进后出！）</span><br><span class="line">A,B,C:A-&gt;B-&gt;C。每个方法在调用栈里都有自己的独立空间，称为栈帧。每个栈帧里面都有对应方法需要的参数和返回地址。当调用方法时</span><br><span class="line">会创建新的栈帧，并压入调用栈，当方法返回时候，对应的栈帧就会被自动弹出。栈帧和方法同存活。</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://static001.geekbang.org/resource/image/67/c7/674bb47feccbf55cf0b6acc5c92e4fc7.png" alt="调用栈结构" title="调用栈结构"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">局部变量的作用域是方法内部，和方法同生死，和栈帧同生死-&gt;局部变量被放到了调用栈里。SO:</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://static001.geekbang.org/resource/image/ec/9c/ece8c32d23e4777c370f594c97762a9c.png" alt="保护局部变量的调用栈结构" title="保护局部变量的调用栈结构"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个线程都有自己的独立栈，从而没有线程安全问题。</span><br><span class="line">线程封闭出现了：仅仅在单线程内访问数据，由于不存在共享所以不同步也没有问题。</span><br><span class="line">java中数据库连接connection一旦被一个线程获取后在这个线程关闭connection这段时间内将不会被其他线程获取，so灭有问题。</span><br></pre></td></tr></table></figure></p>
+<h3 id="并发之面向对象！"><a href="#并发之面向对象！" class="headerlink" title="并发之面向对象！"></a>并发之面向对象！</h3><h4 id="封装共享变量"><a href="#封装共享变量" class="headerlink" title="封装共享变量"></a>封装共享变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">将共享变量作为对象属性封装在内部，对所有的能访问到的涉及到共享变量的公共方法指定并发的访问策略。</span><br><span class="line">public class Counter &#123;</span><br><span class="line">  private long value;</span><br><span class="line">  synchronized long get()&#123;</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line">  synchronized long addOne()&#123;</span><br><span class="line">    return ++value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Counter是个线程安全的类。工作中经常使用final。</span><br></pre></td></tr></table></figure>
+<h4 id="识别共享变量之间的约束条件"><a href="#识别共享变量之间的约束条件" class="headerlink" title="识别共享变量之间的约束条件"></a>识别共享变量之间的约束条件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">下面的代码灭有线程安全问题</span><br><span class="line">public class SafeWM &#123;</span><br><span class="line">  // 库存上限</span><br><span class="line">  private final AtomicLong upper =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 库存下限</span><br><span class="line">  private final AtomicLong lower =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 设置库存上限</span><br><span class="line">  void setUpper(long v)&#123;</span><br><span class="line">    upper.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 设置库存下限</span><br><span class="line">  void setLower(long v)&#123;</span><br><span class="line">    lower.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 省略其他业务代码</span><br><span class="line">&#125;</span><br><span class="line">库存管理中有个合理库存概念，有上下限。所以上面的代码需要修改一下：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class SafeWM &#123;</span><br><span class="line">  // 库存上限</span><br><span class="line">  private final AtomicLong upper =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 库存下限</span><br><span class="line">  private final AtomicLong lower =</span><br><span class="line">        new AtomicLong(0);</span><br><span class="line">  // 设置库存上限</span><br><span class="line">  void setUpper(long v)&#123;</span><br><span class="line">    // 检查参数合法性</span><br><span class="line">    if (v &lt; lower.get()) &#123;</span><br><span class="line">      throw new IllegalArgumentException();</span><br><span class="line">    &#125;</span><br><span class="line">    upper.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 设置库存下限</span><br><span class="line">  void setLower(long v)&#123;</span><br><span class="line">    // 检查参数合法性</span><br><span class="line">    if (v &gt; upper.get()) &#123;</span><br><span class="line">      throw new IllegalArgumentException();</span><br><span class="line">    &#125;</span><br><span class="line">    lower.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  // 省略其他业务代码</span><br><span class="line">&#125;</span><br><span class="line">假设库存[2,10],但是这个时候A-&gt;setUpper(5),B-&gt;setLower(7)假设A,B同时发生A中5&gt;2,B中7&lt;10可以。而此时的逻辑则不正确。</span><br><span class="line">所以改成：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class SafeWM &#123;</span><br><span class="line">    // 库存上限</span><br><span class="line">    private final AtomicLong upper =</span><br><span class="line">            new AtomicLong(0);</span><br><span class="line">    // 库存下限</span><br><span class="line">    private final AtomicLong lower =</span><br><span class="line">            new AtomicLong(0);</span><br><span class="line"></span><br><span class="line">    // 设置库存上限</span><br><span class="line">    void setUpper(long v) &#123;</span><br><span class="line">        // 检查参数合法性</span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">            if (v &gt;= lower.get()) &#123;</span><br><span class="line">                upper.set(v);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 设置库存下限</span><br><span class="line">    void setLower(long v) &#123;</span><br><span class="line">        // 检查参数合法性</span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">            if (v &lt;= upper.get()) &#123;</span><br><span class="line">                lower.set(v);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                throw new IllegalArgumentException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 省略其他业务代码</span><br><span class="line">&#125;</span><br><span class="line">此时线程是安全的，业务也满足了。嘘嘘嘘(松一口气!)</span><br></pre></td></tr></table></figure>
+<h4 id="递归调用太深会导致栈内存溢出？"><a href="#递归调用太深会导致栈内存溢出？" class="headerlink" title="递归调用太深会导致栈内存溢出？"></a>递归调用太深会导致栈内存溢出？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原因：每次调用一次就会有新的栈帧出现，栈帧是消耗内存的。</span><br><span class="line">1-所有递归方法都可以使用非递归实现</span><br><span class="line">2-合理设置栈的大小</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -486,15 +475,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/28/javacurrent6/" rel="next" title="6-为什么局部变量是线程安全的？并发之面向对象！">
+                <i class="fa fa-chevron-left"></i> 6-为什么局部变量是线程安全的？并发之面向对象！
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/10/javacurrent2/" rel="prev" title="2-JMM浅谈">
-                2-JMM浅谈 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -635,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语：把握关键的6秒时差"><span class="nav-number">1.</span> <span class="nav-text">导语：把握关键的6秒时差</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！"><span class="nav-number">1.1.</span> <span class="nav-text">并发的学习不是简单的一两天能解决的，需要长期的学习，运用，总结。加油！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大纲-："><span class="nav-number">2.</span> <span class="nav-text">大纲 ：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍：分工，同步，互斥"><span class="nav-number">3.</span> <span class="nav-text">简单介绍：分工，同步，互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分工"><span class="nav-number">3.1.</span> <span class="nav-text">分工</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步"><span class="nav-number">3.2.</span> <span class="nav-text">同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥"><span class="nav-number">3.3.</span> <span class="nav-text">互斥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可见性，原子性，有序性就是并发的源头"><span class="nav-number">4.</span> <span class="nav-text">可见性，原子性，有序性就是并发的源头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发程序之幕后"><span class="nav-number">4.1.</span> <span class="nav-text">并发程序之幕后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、CPU缓存导致的可见性问题"><span class="nav-number">4.2.</span> <span class="nav-text">一、CPU缓存导致的可见性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、线程切换-带来原子性问题"><span class="nav-number">4.3.</span> <span class="nav-text">二、线程切换-带来原子性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。"><span class="nav-number">4.3.1.</span> <span class="nav-text">1.例如单核CPU电脑上可以边听歌，边写bug，因为多进程存在的原因。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！"><span class="nav-number">4.3.2.</span> <span class="nav-text">2.Unix解决了？支持多进程分时复用–IO操作释放CPU，让CPU去做其他的任务！</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、编译优化带来的有序性问题。"><span class="nav-number">4.4.</span> <span class="nav-text">三、编译优化带来的有序性问题。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">4.5.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#没有什么是不累的。没有什么是不难的。鹰击长空-鱼翔浅底。"><span class="nav-number">1.</span> <span class="nav-text">没有什么是不累的。没有什么是不难的。鹰击长空,鱼翔浅底。</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么局部变量是线程安全的？并发之面向对象！"><span class="nav-number"></span> <span class="nav-text">为什么局部变量是线程安全的？并发之面向对象！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么局部变量是线程安全的？"><span class="nav-number">1.</span> <span class="nav-text">为什么局部变量是线程安全的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发之面向对象！"><span class="nav-number">2.</span> <span class="nav-text">并发之面向对象！</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装共享变量"><span class="nav-number">2.1.</span> <span class="nav-text">封装共享变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#识别共享变量之间的约束条件"><span class="nav-number">2.2.</span> <span class="nav-text">识别共享变量之间的约束条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归调用太深会导致栈内存溢出？"><span class="nav-number">2.3.</span> <span class="nav-text">递归调用太深会导致栈内存溢出？</span></a></li></ol></li></ol></li></div>
             
 
           </div>
